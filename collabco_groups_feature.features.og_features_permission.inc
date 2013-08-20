@@ -156,11 +156,6 @@ function collabco_groups_feature_og_features_default_permissions() {
     'roles' => array(),
   );
 
-  // Exported og permission: 'node:group:update field_precinct field'
-  $permissions['node:group:update field_precinct field'] = array(
-    'roles' => array(),
-  );
-
   // Exported og permission: 'node:group:update group'
   $permissions['node:group:update group'] = array(
     'roles' => array(
@@ -237,11 +232,6 @@ function collabco_groups_feature_og_features_default_permissions() {
 
   // Exported og permission: 'node:group:view field_license field'
   $permissions['node:group:view field_license field'] = array(
-    'roles' => array(),
-  );
-
-  // Exported og permission: 'node:group:view field_precinct field'
-  $permissions['node:group:view field_precinct field'] = array(
     'roles' => array(),
   );
 
