@@ -31,28 +31,13 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:group:create discussion content'
-  $permissions['node:group:create discussion content'] = array(
-    'roles' => array(),
-  );
-
   // Exported og permission: 'node:group:create knowledge_object content'
   $permissions['node:group:create knowledge_object content'] = array(
     'roles' => array(),
   );
 
-  // Exported og permission: 'node:group:delete any discussion content'
-  $permissions['node:group:delete any discussion content'] = array(
-    'roles' => array(),
-  );
-
   // Exported og permission: 'node:group:delete any knowledge_object content'
   $permissions['node:group:delete any knowledge_object content'] = array(
-    'roles' => array(),
-  );
-
-  // Exported og permission: 'node:group:delete own discussion content'
-  $permissions['node:group:delete own discussion content'] = array(
     'roles' => array(),
   );
 
@@ -101,11 +86,6 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:group:update any discussion content'
-  $permissions['node:group:update any discussion content'] = array(
-    'roles' => array(),
-  );
-
   // Exported og permission: 'node:group:update any knowledge_object content'
   $permissions['node:group:update any knowledge_object content'] = array(
     'roles' => array(),
@@ -121,11 +101,6 @@ function collabco_groups_feature_og_features_default_permissions() {
     'roles' => array(),
   );
 
-  // Exported og permission: 'node:group:update field_external_link field'
-  $permissions['node:group:update field_external_link field'] = array(
-    'roles' => array(),
-  );
-
   // Exported og permission: 'node:group:update field_file_or_media field'
   $permissions['node:group:update field_file_or_media field'] = array(
     'roles' => array(),
@@ -133,11 +108,6 @@ function collabco_groups_feature_og_features_default_permissions() {
 
   // Exported og permission: 'node:group:update field_first_name field'
   $permissions['node:group:update field_first_name field'] = array(
-    'roles' => array(),
-  );
-
-  // Exported og permission: 'node:group:update field_image field'
-  $permissions['node:group:update field_image field'] = array(
     'roles' => array(),
   );
 
@@ -180,11 +150,6 @@ function collabco_groups_feature_og_features_default_permissions() {
     'roles' => array(),
   );
 
-  // Exported og permission: 'node:group:update own discussion content'
-  $permissions['node:group:update own discussion content'] = array(
-    'roles' => array(),
-  );
-
   // Exported og permission: 'node:group:update own knowledge_object content'
   $permissions['node:group:update own knowledge_object content'] = array(
     'roles' => array(),
@@ -200,11 +165,6 @@ function collabco_groups_feature_og_features_default_permissions() {
     'roles' => array(),
   );
 
-  // Exported og permission: 'node:group:view field_external_link field'
-  $permissions['node:group:view field_external_link field'] = array(
-    'roles' => array(),
-  );
-
   // Exported og permission: 'node:group:view field_file_or_media field'
   $permissions['node:group:view field_file_or_media field'] = array(
     'roles' => array(),
@@ -212,11 +172,6 @@ function collabco_groups_feature_og_features_default_permissions() {
 
   // Exported og permission: 'node:group:view field_first_name field'
   $permissions['node:group:view field_first_name field'] = array(
-    'roles' => array(),
-  );
-
-  // Exported og permission: 'node:group:view field_image field'
-  $permissions['node:group:view field_image field'] = array(
     'roles' => array(),
   );
 
