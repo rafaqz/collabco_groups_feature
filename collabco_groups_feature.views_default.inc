@@ -99,7 +99,7 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['content'] = 'No people found matching the search criteria.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
-  /* Relationship: Broken/missing handler */
+  /* Relationship: OG membership: OG membership from User */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'users';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -317,11 +317,10 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['relationships']['profile']['bundle_types'] = array(
     'iin_kickstarter' => 'iin_kickstarter',
   );
-  /* Relationship: Broken/missing handler */
+  /* Relationship: OG membership: OG membership from User */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'users';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
-  $handler->display->display_options['relationships']['og_membership_rel']['label'] = 'OG membership from user';
   $handler->display->display_options['relationships']['og_membership_rel']['required'] = TRUE;
   /* Field: User: Uid */
   $handler->display->display_options['fields']['uid']['id'] = 'uid';

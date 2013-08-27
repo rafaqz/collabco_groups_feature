@@ -20,7 +20,6 @@ function collabco_groups_feature_default_fe_block_settings() {
     'module' => 'views',
     'node_types' => array(
       0 => 'closed_group',
-      1 => 'group',
     ),
     'pages' => '',
     'roles' => array(),
