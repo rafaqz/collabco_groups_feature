@@ -125,7 +125,7 @@ function collabco_groups_feature_field_default_field_instances() {
     'bundle' => 'closed_group',
     'default_value' => array(
       0 => array(
-        'value' => 0,
+        'value' => 1,
       ),
     ),
     'deleted' => 0,
@@ -148,7 +148,7 @@ function collabco_groups_feature_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'group_access',
     'label' => 'Group visibility',
-    'required' => TRUE,
+    'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -163,6 +163,7 @@ function collabco_groups_feature_field_default_field_instances() {
       ),
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',

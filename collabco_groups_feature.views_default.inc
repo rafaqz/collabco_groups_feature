@@ -330,6 +330,15 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
+  /* Field: User: Picture */
+  $handler->display->display_options['fields']['picture']['id'] = 'picture';
+  $handler->display->display_options['fields']['picture']['table'] = 'users';
+  $handler->display->display_options['fields']['picture']['field'] = 'picture';
+  $handler->display->display_options['fields']['picture']['label'] = '';
+  $handler->display->display_options['fields']['picture']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['picture']['empty'] = '<img src="http://innovationnetwork.org.au/sites/alphaiin/files/avatar-blank.jpg" style="height:32px;width:32px;" />';
+  $handler->display->display_options['fields']['picture']['image_style'] = 'user_thumb_small';
   /* Field: User: Last Name */
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
@@ -349,15 +358,6 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['fields']['field_first_name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_first_name']['alter']['path'] = 'user/[uid]';
   $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
-  /* Field: User: Picture */
-  $handler->display->display_options['fields']['picture']['id'] = 'picture';
-  $handler->display->display_options['fields']['picture']['table'] = 'users';
-  $handler->display->display_options['fields']['picture']['field'] = 'picture';
-  $handler->display->display_options['fields']['picture']['label'] = '';
-  $handler->display->display_options['fields']['picture']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['picture']['empty'] = '<img src="http://innovationnetwork.org.au/sites/alphaiin/files/avatar-blank.jpg" style="height:32px;width:32px;" />';
-  $handler->display->display_options['fields']['picture']['image_style'] = 'user_thumb';
   /* Field: Profile: Business Position */
   $handler->display->display_options['fields']['field_business_position']['id'] = 'field_business_position';
   $handler->display->display_options['fields']['field_business_position']['table'] = 'field_data_field_business_position';
@@ -389,8 +389,6 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[picture]
-<h6>[field_first_name]</h6>
-<p class="p2">[field_business_position]<br/><span style=color: #000000;">[field_organisation_ref]</span></p>
 ';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Sort criterion: User: Last Name (field_last_name) */

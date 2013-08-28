@@ -32,6 +32,7 @@ function collabco_groups_feature_field_default_field_bases() {
         1 => 'Private - accessible only to group members',
       ),
       'allowed_values_function' => '',
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',

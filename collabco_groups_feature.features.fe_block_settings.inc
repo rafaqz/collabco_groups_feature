@@ -12,11 +12,11 @@ function collabco_groups_feature_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
-  $export['views-28d52582802129a1e43189419c41eb29'] = array(
+  $export['views-group_users-block'] = array(
     'cache' => -1,
-    'css_class' => 'iin-join-conversation-block',
+    'css_class' => 'iin-feature hidden-phone',
     'custom' => 0,
-    'delta' => '28d52582802129a1e43189419c41eb29',
+    'delta' => 'group_users-block',
     'module' => 'views',
     'node_types' => array(
       0 => 'closed_group',
@@ -25,7 +25,7 @@ function collabco_groups_feature_default_fe_block_settings() {
     'roles' => array(),
     'themes' => array(
       'openhub' => array(
-        'region' => 'content_lower',
+        'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'openhub',
         'weight' => 0,
@@ -37,34 +37,7 @@ function collabco_groups_feature_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => '',
-    'visibility' => 0,
-  );
-
-  $export['views-group_users-block'] = array(
-    'cache' => -1,
-    'css_class' => '',
-    'custom' => 0,
-    'delta' => 'group_users-block',
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(),
-    'themes' => array(
-      'openhub' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'openhub',
-        'weight' => 0,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
+    'title' => 'Group Users',
     'visibility' => 0,
   );
 
