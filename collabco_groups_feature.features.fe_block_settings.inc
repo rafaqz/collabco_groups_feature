@@ -18,11 +18,11 @@ function collabco_groups_feature_default_fe_block_settings() {
     'custom' => 0,
     'delta' => 'group_users-block',
     'module' => 'views',
-    'node_types' => array(
-      0 => 'closed_group',
-    ),
+    'node_types' => array(),
     'pages' => '',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
     'themes' => array(
       'custom_theme' => array(
         'region' => 'sidebar_second',
