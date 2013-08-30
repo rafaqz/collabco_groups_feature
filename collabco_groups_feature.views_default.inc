@@ -286,8 +286,8 @@ function collabco_groups_feature_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'access user profiles';
+  $handler->display->display_options['access']['type'] = 'og_context';
+  $handler->display->display_options['access']['perm'] = 'view body field';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -322,6 +322,13 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'users';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['required'] = TRUE;
+  /* Field: Profile: URL */
+  $handler->display->display_options['fields']['url']['id'] = 'url';
+  $handler->display->display_options['fields']['url']['table'] = 'views_entity_profile2';
+  $handler->display->display_options['fields']['url']['field'] = 'url';
+  $handler->display->display_options['fields']['url']['relationship'] = 'profile';
+  $handler->display->display_options['fields']['url']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['url']['link_to_entity'] = 0;
   /* Field: User: Uid */
   $handler->display->display_options['fields']['uid']['id'] = 'uid';
   $handler->display->display_options['fields']['uid']['table'] = 'users';
@@ -330,15 +337,6 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: User: Picture */
-  $handler->display->display_options['fields']['picture']['id'] = 'picture';
-  $handler->display->display_options['fields']['picture']['table'] = 'users';
-  $handler->display->display_options['fields']['picture']['field'] = 'picture';
-  $handler->display->display_options['fields']['picture']['label'] = '';
-  $handler->display->display_options['fields']['picture']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['picture']['empty'] = '<img src="http://innovationnetwork.org.au/sites/alphaiin/files/avatar-blank.jpg" style="height:32px;width:32px;" />';
-  $handler->display->display_options['fields']['picture']['image_style'] = 'user_thumb_small';
   /* Field: User: Last Name */
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
@@ -358,31 +356,14 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['fields']['field_first_name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_first_name']['alter']['path'] = 'user/[uid]';
   $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
-  /* Field: Profile: Business Position */
-  $handler->display->display_options['fields']['field_business_position']['id'] = 'field_business_position';
-  $handler->display->display_options['fields']['field_business_position']['table'] = 'field_data_field_business_position';
-  $handler->display->display_options['fields']['field_business_position']['field'] = 'field_business_position';
-  $handler->display->display_options['fields']['field_business_position']['relationship'] = 'profile';
-  $handler->display->display_options['fields']['field_business_position']['label'] = '';
-  $handler->display->display_options['fields']['field_business_position']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_business_position']['alter']['max_length'] = '75';
-  $handler->display->display_options['fields']['field_business_position']['alter']['trim'] = TRUE;
-  $handler->display->display_options['fields']['field_business_position']['element_label_colon'] = FALSE;
-  /* Field: Profile: Organisation */
-  $handler->display->display_options['fields']['field_organisation_ref']['id'] = 'field_organisation_ref';
-  $handler->display->display_options['fields']['field_organisation_ref']['table'] = 'field_data_field_organisation_ref';
-  $handler->display->display_options['fields']['field_organisation_ref']['field'] = 'field_organisation_ref';
-  $handler->display->display_options['fields']['field_organisation_ref']['relationship'] = 'profile';
-  $handler->display->display_options['fields']['field_organisation_ref']['label'] = '';
-  $handler->display->display_options['fields']['field_organisation_ref']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_organisation_ref']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_organisation_ref']['alter']['text'] = '@ [field_organisation_ref] ';
-  $handler->display->display_options['fields']['field_organisation_ref']['alter']['max_length'] = '75';
-  $handler->display->display_options['fields']['field_organisation_ref']['alter']['trim'] = TRUE;
-  $handler->display->display_options['fields']['field_organisation_ref']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_organisation_ref']['settings'] = array(
-    'link' => 0,
-  );
+  /* Field: User: Picture */
+  $handler->display->display_options['fields']['picture']['id'] = 'picture';
+  $handler->display->display_options['fields']['picture']['table'] = 'users';
+  $handler->display->display_options['fields']['picture']['field'] = 'picture';
+  $handler->display->display_options['fields']['picture']['label'] = '';
+  $handler->display->display_options['fields']['picture']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['picture']['image_style'] = 'user_thumb_small';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';

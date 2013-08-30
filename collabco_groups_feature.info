@@ -12,13 +12,14 @@ dependencies[] = features
 dependencies[] = list
 dependencies[] = node
 dependencies[] = og
+dependencies[] = og_context
 dependencies[] = og_field_access
 dependencies[] = og_ui
 dependencies[] = options
 dependencies[] = strongarm
 dependencies[] = text
 dependencies[] = views
-datestamp = 1377572865
+datestamp = 1377761544
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[fe_block_settings][] = views-group_users-block
@@ -133,10 +134,3 @@ features[variable][] = node_submitted_group
 features[views_view][] = goup_member_individuals_admin
 features[views_view][] = group_users
 features_exclude[field_base][body] = body
-
-
-; Information added by drush on 2013-08-28
-version = "unknown"
-project = "collabco_groups_feature"
-datestamp = "1377754368"
-
