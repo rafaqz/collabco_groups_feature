@@ -31,21 +31,6 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:closed_group:create conversation content'
-  $permissions['node:closed_group:create conversation content'] = array(
-    'roles' => array(),
-  );
-
-  // Exported og permission: 'node:closed_group:delete any conversation content'
-  $permissions['node:closed_group:delete any conversation content'] = array(
-    'roles' => array(),
-  );
-
-  // Exported og permission: 'node:closed_group:delete own conversation content'
-  $permissions['node:closed_group:delete own conversation content'] = array(
-    'roles' => array(),
-  );
-
   // Exported og permission: 'node:closed_group:manage members'
   $permissions['node:closed_group:manage members'] = array(
     'roles' => array(
@@ -82,26 +67,16 @@ function collabco_groups_feature_og_features_default_permissions() {
   // Exported og permission: 'node:closed_group:unsubscribe'
   $permissions['node:closed_group:unsubscribe'] = array(
     'roles' => array(
+      'administrator member' => 'administrator member',
       'member' => 'member',
     ),
-  );
-
-  // Exported og permission: 'node:closed_group:update any conversation content'
-  $permissions['node:closed_group:update any conversation content'] = array(
-    'roles' => array(),
   );
 
   // Exported og permission: 'node:closed_group:update body field'
   $permissions['node:closed_group:update body field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
-      'member' => 'member',
     ),
-  );
-
-  // Exported og permission: 'node:closed_group:update field_attachment field'
-  $permissions['node:closed_group:update field_attachment field'] = array(
-    'roles' => array(),
   );
 
   // Exported og permission: 'node:closed_group:update field_first_name field'
@@ -111,9 +86,7 @@ function collabco_groups_feature_og_features_default_permissions() {
 
   // Exported og permission: 'node:closed_group:update field_last_name field'
   $permissions['node:closed_group:update field_last_name field'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-    ),
+    'roles' => array(),
   );
 
   // Exported og permission: 'node:closed_group:update group'
@@ -132,28 +105,16 @@ function collabco_groups_feature_og_features_default_permissions() {
 
   // Exported og permission: 'node:closed_group:update group_group field'
   $permissions['node:closed_group:update group_group field'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-      'member' => 'member',
-    ),
+    'roles' => array(),
   );
 
   // Exported og permission: 'node:closed_group:update og_group_ref field'
   $permissions['node:closed_group:update og_group_ref field'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-    ),
+    'roles' => array(),
   );
 
   // Exported og permission: 'node:closed_group:update og_user_node field'
   $permissions['node:closed_group:update og_user_node field'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-    ),
-  );
-
-  // Exported og permission: 'node:closed_group:update own conversation content'
-  $permissions['node:closed_group:update own conversation content'] = array(
     'roles' => array(),
   );
 
@@ -165,19 +126,20 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:closed_group:view field_attachment field'
-  $permissions['node:closed_group:view field_attachment field'] = array(
-    'roles' => array(),
-  );
-
   // Exported og permission: 'node:closed_group:view field_first_name field'
   $permissions['node:closed_group:view field_first_name field'] = array(
-    'roles' => array(),
+    'roles' => array(
+      'administrator member' => 'administrator member',
+      'member' => 'member',
+    ),
   );
 
   // Exported og permission: 'node:closed_group:view field_last_name field'
   $permissions['node:closed_group:view field_last_name field'] = array(
-    'roles' => array(),
+    'roles' => array(
+      'administrator member' => 'administrator member',
+      'member' => 'member',
+    ),
   );
 
   // Exported og permission: 'node:closed_group:view group_access field'
@@ -198,6 +160,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:closed_group:view og_group_ref field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -227,27 +190,6 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:approve and deny subscription'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
-    ),
-  );
-
-  // Exported og permission: 'node:group:create conversation content'
-  $permissions['node:group:create conversation content'] = array(
-    'roles' => array(
-      'member' => 'member',
-    ),
-  );
-
-  // Exported og permission: 'node:group:delete any conversation content'
-  $permissions['node:group:delete any conversation content'] = array(
-    'roles' => array(
-      'member' => 'member',
-    ),
-  );
-
-  // Exported og permission: 'node:group:delete own conversation content'
-  $permissions['node:group:delete own conversation content'] = array(
-    'roles' => array(
-      'member' => 'member',
     ),
   );
 
@@ -289,24 +231,12 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:group:update any conversation content'
-  $permissions['node:group:update any conversation content'] = array(
-    'roles' => array(
-      'member' => 'member',
-    ),
-  );
-
   // Exported og permission: 'node:group:update body field'
   $permissions['node:group:update body field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
-  );
-
-  // Exported og permission: 'node:group:update field_attachment field'
-  $permissions['node:group:update field_attachment field'] = array(
-    'roles' => array(),
   );
 
   // Exported og permission: 'node:group:update field_first_name field'
@@ -356,24 +286,12 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:group:update own conversation content'
-  $permissions['node:group:update own conversation content'] = array(
-    'roles' => array(
-      'member' => 'member',
-    ),
-  );
-
   // Exported og permission: 'node:group:view body field'
   $permissions['node:group:view body field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
-  );
-
-  // Exported og permission: 'node:group:view field_attachment field'
-  $permissions['node:group:view field_attachment field'] = array(
-    'roles' => array(),
   );
 
   // Exported og permission: 'node:group:view field_first_name field'

@@ -14,12 +14,13 @@ function collabco_groups_feature_default_fe_block_settings() {
 
   $export['views-group_users-block'] = array(
     'cache' => -1,
-    'css_class' => 'iin-feature hidden-phone',
+    'css_class' => 'sidetheme group-members',
     'custom' => 0,
     'delta' => 'group_users-block',
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => 'node/*/edit
+user/*/edit',
     'roles' => array(
       'authenticated user' => 2,
     ),
@@ -37,7 +38,7 @@ function collabco_groups_feature_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => 'Group Users',
+    'title' => 'Group Members',
     'visibility' => 0,
   );
 

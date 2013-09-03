@@ -93,11 +93,18 @@ function collabco_groups_feature_field_default_field_bases() {
           'og_behavior' => array(
             'status' => TRUE,
           ),
+          'views-select-list' => array(
+            'status' => 0,
+          ),
         ),
         'membership_type' => 'og_membership_type_default',
+        'sort' => array(
+          'type' => 'none',
+        ),
         'target_bundles' => array(),
       ),
       'handler_submit' => 'Change handler',
+      'profile2_private' => FALSE,
       'target_type' => 'node',
     ),
     'translatable' => 0,
