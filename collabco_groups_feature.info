@@ -130,6 +130,7 @@ features[variable][] = og_node_access_strict
 features[variable][] = og_orphans_delete
 features[variable][] = og_ui_admin_people_view
 features[variable][] = og_use_queue
+features[variable][] = pathauto_node_group_pattern
 features[views_view][] = goup_member_individuals_admin
 features[views_view][] = group_users
 features_exclude[field_base][body] = body
