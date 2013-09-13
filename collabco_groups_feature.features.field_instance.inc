@@ -252,17 +252,19 @@ function collabco_groups_feature_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'entityconnect_unload_add' => 1,
+    'entityconnect_unload_edit' => 1,
     'field_name' => 'og_group_ref',
-    'label' => 'Groups audience',
-    'required' => FALSE,
+    'label' => 'Only make this available to the group(s):',
+    'required' => 0,
     'settings' => array(
       'behaviors' => array(
         'og_widget' => array(
           'admin' => array(
-            'widget_type' => 'entityreference_autocomplete',
+            'widget_type' => 'options_buttons',
           ),
           'default' => array(
-            'widget_type' => 'options_select',
+            'widget_type' => 'options_buttons',
           ),
           'status' => TRUE,
         ),
@@ -282,6 +284,7 @@ function collabco_groups_feature_field_default_field_instances() {
       ),
     ),
     'widget' => array(
+      'active' => 0,
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
@@ -431,7 +434,7 @@ function collabco_groups_feature_field_default_field_instances() {
   t('Determine if this is an OG group.');
   t('Group');
   t('Group visibility');
-  t('Groups audience');
+  t('Only make this available to the group(s):');
   t('Request message');
   t('This is the text a user may send to the group administrators.');
 
