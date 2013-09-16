@@ -14,7 +14,7 @@ function collabco_groups_feature_default_fe_block_settings() {
 
   $export['views-group_users-block'] = array(
     'cache' => -1,
-    'css_class' => 'sidetheme group-members',
+    'css_class' => 'sidetheme group-members paddingreset',
     'custom' => 0,
     'delta' => 'group_users-block',
     'module' => 'views',
@@ -26,8 +26,8 @@ user/*/edit',
     ),
     'themes' => array(
       'custom_theme' => array(
-        'region' => 'sidebar_second',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'custom_theme',
         'weight' => 0,
       ),

@@ -255,7 +255,7 @@ function collabco_groups_feature_field_default_field_instances() {
     'entityconnect_unload_add' => 1,
     'entityconnect_unload_edit' => 1,
     'field_name' => 'og_group_ref',
-    'label' => 'Only make this available to the group(s):',
+    'label' => 'Only made available to the group(s)',
     'required' => 0,
     'settings' => array(
       'behaviors' => array(
@@ -434,7 +434,7 @@ function collabco_groups_feature_field_default_field_instances() {
   t('Determine if this is an OG group.');
   t('Group');
   t('Group visibility');
-  t('Only make this available to the group(s):');
+  t('Only made available to the group(s)');
   t('Request message');
   t('This is the text a user may send to the group administrators.');
 
