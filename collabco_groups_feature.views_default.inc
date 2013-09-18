@@ -275,7 +275,7 @@ function collabco_groups_feature_views_default_views() {
   $view = new view();
   $view->name = 'group_users';
   $view->description = 'Shows a grid of users in a group.';
-  $view->tag = 'default';
+  $view->tag = 'Group Feature';
   $view->base_table = 'users';
   $view->human_name = 'Group Users';
   $view->core = 7;
