@@ -25,7 +25,9 @@ function collabco_groups_feature_user_default_permissions() {
   $permissions['create group content'] = array(
     'name' => 'create group content',
     'roles' => array(
-      'authenticated user' => 'authenticated user',
+      'Admin' => 'Admin',
+      'Community Moderator' => 'Community Moderator',
+      'Content Manager' => 'Content Manager',
     ),
     'module' => 'node',
   );
@@ -35,6 +37,8 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'delete any closed_group content',
     'roles' => array(
       'Admin' => 'Admin',
+      'Community Moderator' => 'Community Moderator',
+      'Content Manager' => 'Content Manager',
     ),
     'module' => 'node',
   );
@@ -44,6 +48,8 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'delete any group content',
     'roles' => array(
       'Admin' => 'Admin',
+      'Community Moderator' => 'Community Moderator',
+      'Content Manager' => 'Content Manager',
     ),
     'module' => 'node',
   );
@@ -53,7 +59,8 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'delete own closed_group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'authenticated user' => 'authenticated user',
+      'Community Moderator' => 'Community Moderator',
+      'Content Manager' => 'Content Manager',
     ),
     'module' => 'node',
   );
@@ -62,7 +69,9 @@ function collabco_groups_feature_user_default_permissions() {
   $permissions['delete own group content'] = array(
     'name' => 'delete own group content',
     'roles' => array(
-      'authenticated user' => 'authenticated user',
+      'Admin' => 'Admin',
+      'Community Moderator' => 'Community Moderator',
+      'Content Manager' => 'Content Manager',
     ),
     'module' => 'node',
   );
@@ -83,6 +92,8 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'edit any group content',
     'roles' => array(
       'Admin' => 'Admin',
+      'Community Moderator' => 'Community Moderator',
+      'Content Manager' => 'Content Manager',
     ),
     'module' => 'node',
   );
@@ -92,7 +103,8 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'edit own closed_group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'authenticated user' => 'authenticated user',
+      'Community Moderator' => 'Community Moderator',
+      'Content Manager' => 'Content Manager',
     ),
     'module' => 'node',
   );
@@ -101,7 +113,9 @@ function collabco_groups_feature_user_default_permissions() {
   $permissions['edit own group content'] = array(
     'name' => 'edit own group content',
     'roles' => array(
-      'authenticated user' => 'authenticated user',
+      'Admin' => 'Admin',
+      'Community Moderator' => 'Community Moderator',
+      'Content Manager' => 'Content Manager',
     ),
     'module' => 'node',
   );
