@@ -31,6 +31,21 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
+  // Exported og permission: 'node:closed_group:create basic_page content'
+  $permissions['node:closed_group:create basic_page content'] = array(
+    'roles' => array(),
+  );
+
+  // Exported og permission: 'node:closed_group:delete any basic_page content'
+  $permissions['node:closed_group:delete any basic_page content'] = array(
+    'roles' => array(),
+  );
+
+  // Exported og permission: 'node:closed_group:delete own basic_page content'
+  $permissions['node:closed_group:delete own basic_page content'] = array(
+    'roles' => array(),
+  );
+
   // Exported og permission: 'node:closed_group:manage members'
   $permissions['node:closed_group:manage members'] = array(
     'roles' => array(
@@ -70,6 +85,11 @@ function collabco_groups_feature_og_features_default_permissions() {
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
+  );
+
+  // Exported og permission: 'node:closed_group:update any basic_page content'
+  $permissions['node:closed_group:update any basic_page content'] = array(
+    'roles' => array(),
   );
 
   // Exported og permission: 'node:closed_group:update body field'
@@ -115,6 +135,11 @@ function collabco_groups_feature_og_features_default_permissions() {
 
   // Exported og permission: 'node:closed_group:update og_user_node field'
   $permissions['node:closed_group:update og_user_node field'] = array(
+    'roles' => array(),
+  );
+
+  // Exported og permission: 'node:closed_group:update own basic_page content'
+  $permissions['node:closed_group:update own basic_page content'] = array(
     'roles' => array(),
   );
 
@@ -193,6 +218,21 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
+  // Exported og permission: 'node:group:create basic_page content'
+  $permissions['node:group:create basic_page content'] = array(
+    'roles' => array(),
+  );
+
+  // Exported og permission: 'node:group:delete any basic_page content'
+  $permissions['node:group:delete any basic_page content'] = array(
+    'roles' => array(),
+  );
+
+  // Exported og permission: 'node:group:delete own basic_page content'
+  $permissions['node:group:delete own basic_page content'] = array(
+    'roles' => array(),
+  );
+
   // Exported og permission: 'node:group:manage members'
   $permissions['node:group:manage members'] = array(
     'roles' => array(
@@ -229,6 +269,11 @@ function collabco_groups_feature_og_features_default_permissions() {
     'roles' => array(
       'member' => 'member',
     ),
+  );
+
+  // Exported og permission: 'node:group:update any basic_page content'
+  $permissions['node:group:update any basic_page content'] = array(
+    'roles' => array(),
   );
 
   // Exported og permission: 'node:group:update body field'
@@ -284,6 +329,11 @@ function collabco_groups_feature_og_features_default_permissions() {
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
+  );
+
+  // Exported og permission: 'node:group:update own basic_page content'
+  $permissions['node:group:update own basic_page content'] = array(
+    'roles' => array(),
   );
 
   // Exported og permission: 'node:group:view body field'
