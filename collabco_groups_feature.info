@@ -8,6 +8,7 @@ project = collabco_groups_feature
 dependencies[] = block_class
 dependencies[] = collabco_settings_feature
 dependencies[] = context
+dependencies[] = context_og
 dependencies[] = og_access
 dependencies[] = og_context
 dependencies[] = views
