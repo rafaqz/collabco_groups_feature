@@ -11,6 +11,7 @@ dependencies[] = context
 dependencies[] = context_og
 dependencies[] = ctools
 dependencies[] = entityreference
+dependencies[] = entityreference_prepopulate
 dependencies[] = features
 dependencies[] = list
 dependencies[] = node
