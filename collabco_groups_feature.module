@@ -5,3 +5,187 @@
  */
 
 include_once 'collabco_groups_feature.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+
+function collabco_groups_feature_menu() {
+  $items['node/%/taxonomy/%/add'] = array(
+    'page callback' => 'collabco_groups_feature_term_add_page',
+    'page arguments' => array(3),
+    'access callback' => 'collabco_groups_feature_term_add_access',
+    'access arguments' => array(3),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_init().
+ */
+function collabco_groups_feature_init() { 
+  // Set og context from url query, if its being used with entity prepopulate.
+  $params = drupal_get_query_parameters();
+  if (!empty($params['og_group_ref'])) {
+    $group = node_load($params['og_group_ref']);
+    og_context('node', $group);
+  }
+  // Add OG Context for all subpaths of nodes that are groups.
+  // Some ugly code to get the group id from path and set og_context.
+  // @todo find a better way to do this, why is there no nicer drupal function?? 
+  // why dosn't OG do this by default?
+ 
+  // Check if the current path starts with /node/*.
+  if ((arg(0) === 'node') && is_numeric(arg(1))) {
+    // Load the node from the current path.
+    if ($group = node_load(arg(1))) {
+      // Check if this is a group node.
+      if (!empty($group->group_group['und'][0]['value'])) {
+        if ($group->group_group['und'][0]['value'] === '1') {
+        // Set the og context to the group node from the path.
+          og_context('node', $group);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Provide users with a term add page.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
+function collabco_groups_feature_term_add_page($bundle) {
+  if ($vocabulary = taxonomy_vocabulary_machine_name_load($bundle)) {
+    module_load_include('inc', 'taxonomy', 'taxonomy.admin');
+    //Build taxonomy form.
+    drupal_set_title($title = t('Add ') . $vocabulary->name, $output = CHECK_PLAIN);
+    $form_id = 'taxonomy_form_term';
+    $edit = array();
+    $form = drupal_get_form($form_id, $edit, $vocabulary);
+    return drupal_render($form);
+  }
+  else {
+    return MENU_NOT_FOUND;
+  }
+}
+
+/**
+ * Check access ipermission to term add page.
+ *
+ * @return bool
+ */
+function collabco_groups_feature_term_add_access($bundle) {
+  if ($vocabulary = taxonomy_vocabulary_machine_name_load($bundle)) {
+    $perm_string = "edit terms in " .  $vocabulary->vid;
+    return user_access($perm_string);
+  }
+  else {
+    return TRUE;
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function collabco_groups_feature_block_info() {
+  $blocks = array();
+  $blocks['collabco_groups_feature'] = array(
+    'info' => t('Group Toolbar'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function collabco_groups_feature_block_view($delta='') {
+  global $base_url;
+  switch($delta) {
+    case 'collabco_groups_feature' :
+      $block = collabco_groups_feature_build_group_menu();
+      break;
+  }
+  return $block;
+} 
+
+/**
+ * Build a group toolbar block.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
+function collabco_groups_feature_build_group_menu() {
+  global $user;
+
+  // Check if the current user is in the current group from context.
+  $group = og_context();
+  $entity_type = 'user';
+  if (empty($group) or !og_is_member($group['group_type'], $group['gid'], $entity_type, $user)) {
+    return;
+  }
+  $block['og_context'] = $group;
+
+  // Create the list off links for each node type that the user can add to the
+  // group. 
+  $group_field_info = field_info_field('og_group_ref');
+  if (!empty($group_field_info)) {
+    // Build render array structure.
+    $block = array();
+    $content = array(
+      '#type' => 'container',
+      '#attributes' => array('class' => array('group_menu')),
+      'content' => array(
+        '#type' => 'markup',
+        '#markup' => t('Add content to this group:'),
+        '#weight' => 0,
+      ),
+      'add-content-list' => array(
+        '#theme' => 'item_list',
+        '#weight' => 1,
+      ),
+      'add-term-list' => array(
+        '#theme' => 'item_list',
+        '#weight' => 2,
+      ),
+    );
+
+    // Build query array for entity reference prepoluate
+    $query_array = array('og_group_ref' => $group['gid']);
+    $options = array('query' => $query_array);
+
+    // Add a list item for each node type, as a link to its node/add page.
+    foreach($group_field_info['bundles']['node'] as $bundle) {
+      // Construct permission name string for the node bundle.
+      $perm_string = "create $bundle content";
+      // Add menu link if the current user can create nodes in the bundle.
+      if (user_access($perm_string)) {
+        $text = t('Create ') . node_type_get_name($bundle);
+        $url = "node/add/" . str_replace('_', '-', $bundle);
+        $content['add-content-list']['#items'][$bundle] = l($text, $url, $options); 
+      }
+    }
+
+    // Add a list item for each taxonomy vocabulary, as a link to its term/add
+    // and vocabulary view.
+    foreach($group_field_info['bundles']['taxonomy_term'] as $bundle) {
+      $vocabulary = taxonomy_vocabulary_machine_name_load($bundle);
+      // Construct permission name string for the taxonomy bundle.
+      $perm_string = "edit terms in " .  $vocabulary->vid;
+      // Add menu link if the current user can create taxonomy terms in the bundle.
+      if (user_access($perm_string)) {
+        $text = t('Add ') . $vocabulary->name;
+        $url = "node/{$group['gid']}/taxonomy/$bundle/add/";
+        $content['add-term-list']['#items'][$bundle] = l($text, $url, $options); 
+        // Link to view to edit all terms in vocab and group.
+        $text = t('View ') . $vocabulary->name . ' ' . t('vocabulary');
+        $url = "node/{$group['gid']}/taxonomy/$bundle/";
+        $content['add-term-list']['#items']["edit-$bundle"] = l($text, $url); 
+      }
+    }
+    $block['content'] = $content;
+    return $block;
+  }
+}
+
