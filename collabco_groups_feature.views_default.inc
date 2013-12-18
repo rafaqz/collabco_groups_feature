@@ -469,6 +469,13 @@ function collabco_groups_feature_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  /* Footer: Global: Text area */
+  $handler->display->display_options['footer']['area']['id'] = 'area';
+  $handler->display->display_options['footer']['area']['table'] = 'views';
+  $handler->display->display_options['footer']['area']['field'] = 'area';
+  $handler->display->display_options['footer']['area']['label'] = 'Add term';
+  $handler->display->display_options['footer']['area']['content'] = '<a href=\'add\'>Add term</a>';
+  $handler->display->display_options['footer']['area']['format'] = 'php_code';
   /* Field: Bulk operations: Taxonomy term */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'taxonomy_term_data';
