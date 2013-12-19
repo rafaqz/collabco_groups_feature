@@ -21,10 +21,28 @@ function collabco_groups_feature_menu() {
 }
 
 /**
+ * Implements hook_menu_alter().
+ */
+function collabco_groups_feature_menu_alter(&$items) {
+  unset($items['node/%node/view']['title']);
+  $items['node/%node/view']['title callback'] = 'collabco_groups_feature_view_tab_title';
+  $items['node/%node/view']['title arguments'] = array(1);
+}
+
+function collabco_groups_feature_view_tab_title($node) {
+  switch ($node->type) {
+  case 'group' || 'closed_group' || 'project':
+    return t('About');
+  }
+  return t('View');
+}
+
+/**
  * Implements hook_init().
+ * 
+ * Set og context from url query, if its being used with entity prepopulate.
  */
 function collabco_groups_feature_init() { 
-  // Set og context from url query, if its being used with entity prepopulate.
   $params = drupal_get_query_parameters();
   if (!empty($params['og_group_ref'])) {
     $group = node_load($params['og_group_ref']);
@@ -72,7 +90,7 @@ function collabco_groups_feature_term_add_page($bundle) {
 }
 
 /**
- * Check access ipermission to term add page.
+ * Check access permission to term add page.
  *
  * @return bool
  */
@@ -90,14 +108,13 @@ function collabco_groups_feature_term_add_access($bundle) {
  * Implements hook_block_info().
  */
 function collabco_groups_feature_block_info() {
-  $blocks = array();
-  $blocks['group_toolbar'] = array(
-    'info' => t('Group Toolbar'),
-  );
-
-  $blocks = array();
-  $blocks['group_header'] = array(
-    'info' => t('Group Header'),
+  $blocks = array(
+    'group_toolbar' => array(
+      'info' => t('Group Toolbar'),
+    ),
+    'group_header' => array(
+      'info' => t('Group Header'),
+    ),
   );
 
   return $blocks;
@@ -237,7 +254,7 @@ function collabco_groups_feature_build_group_header() {
     ),
   );
 
-  if ($group->group_access['und'][0]['value'] === '1') {
+  if (!empty($group->group_access['und'][0]['value']) && $group->group_access['und'][0]['value'] === '1') {
     $block['content']['status'] = array(
       '#type' => 'markup',
       '#markup' => t('Private'),
