@@ -33,6 +33,7 @@ function collabco_groups_feature_view_tab_title($node) {
   switch ($node->type) {
   case 'group' || 'closed_group' || 'project':
     return t('About');
+    break;
   }
   return t('View');
 }
@@ -115,8 +116,10 @@ function collabco_groups_feature_block_info() {
     'group_header' => array(
       'info' => t('Group Header'),
     ),
+    'user_groups_list' => array(
+      'info' => t('User Groups List)'),
+    ),
   );
-
   return $blocks;
 }
 
@@ -132,8 +135,30 @@ function collabco_groups_feature_block_view($delta='') {
     case 'group_header' :
       $block = collabco_groups_feature_build_group_header();
       return $block;
+    case 'user_groups_list' :
+      $block = collabco_groups_feature_build_user_groups_list();
+      return $block;
   }
 
+} 
+
+function collabco_groups_feature_build_user_groups_list() {
+  global $base_url;
+  global $user;
+  $block = array();
+
+  // Build groups section.
+  $group_links = '';
+  $groups = og_get_groups_by_user($user);
+  if (!empty($groups)) {
+    foreach ($groups['node'] as $key => $gid) {
+      $node = node_load($gid);
+      // Replace this with render arrays...
+      $group_links .= '<li><a href="' . $base_url . '/node/' . $node->nid . '">' . $node->title . '</a></li>';
+    }
+    $block['content'] = '<div><h6>Your Groups:</h6><ul>' . $group_links . '</ul></div>';
+  }
+  return $block;
 } 
 
 /**
@@ -227,8 +252,19 @@ function collabco_groups_feature_build_group_header() {
     return;
   }
   $group = node_load($context['gid']);
-  // Build render array structure.
+
+  // Get group title and all parent group titles.
   $title = collabco_groups_feature_get_title_recursive($group);
+
+  // Determine group privacy status.
+  if (!empty($group->group_access['und'][0]['value']) && $group->group_access['und'][0]['value'] === '1') {
+    $privacy = t('Private');
+  }
+  else {
+    $privacy = t('Public');
+  }
+
+  // Build render array structure.
   $block = array();
   $block['content'] = array(
     '#type' => 'container',
@@ -252,15 +288,12 @@ function collabco_groups_feature_build_group_header() {
       //'#prefix' => '<h3>',
       //'#suffix' => '</h3>'
     ),
-  );
-
-  if (!empty($group->group_access['und'][0]['value']) && $group->group_access['und'][0]['value'] === '1') {
-    $block['content']['status'] = array(
+    'status' => array(
       '#type' => 'markup',
-      '#markup' => t('Private'),
+      '#markup' => $privacy,
       '#weight' => 5,
-    );
-  }
+    ),
+  );
 
   return $block;
 }
@@ -274,3 +307,11 @@ function collabco_groups_feature_get_title_recursive($group) {
   return $title;
 }
 
+function collabco_groups_feature_preprocess_page(&$vars) {
+  $vars['show_title'] = TRUE; // so that showtitle is true by default
+  if (isset($vars['node'])) {
+    if ($vars['node']->type == 'project') { 
+      $vars['show_title'] = FALSE;
+    }
+  }
+}
