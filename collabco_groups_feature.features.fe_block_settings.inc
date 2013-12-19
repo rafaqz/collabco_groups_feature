@@ -14,7 +14,7 @@ function collabco_groups_feature_default_fe_block_settings() {
 
   $export['views-group_users-block'] = array(
     'cache' => -1,
-    'css_class' => 'sidetheme group-members paddingreset',
+    'css_class' => 'group-members padding-reset',
     'custom' => 0,
     'delta' => 'group_users-block',
     'module' => 'views',
@@ -38,7 +38,7 @@ user/*/edit',
         'weight' => 0,
       ),
     ),
-    'title' => 'Group Members',
+    'title' => 'Members',
     'visibility' => 0,
   );
 
