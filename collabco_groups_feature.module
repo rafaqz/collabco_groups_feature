@@ -264,6 +264,11 @@ function collabco_groups_feature_build_group_header() {
     $privacy = t('Public');
   }
 
+  if (!empty($group->body['und'][0]['summary'])) {
+    $description = $group->body['und'][0]['summary'];
+  }
+  else
+    $description = '';
   // Build render array structure.
   $block = array();
   $block['content'] = array(
@@ -273,25 +278,32 @@ function collabco_groups_feature_build_group_header() {
       '#type' => 'markup',
       '#markup' => $title,
       '#weight' => 0,
+      '#prefix' => '<div>',
+      '#suffix' => '</div>'
     ),
     'description' => array(
       '#type' => 'markup',
-      '#markup' => $group->body['und'][0]['summary'],
+      '#markup' => $description,
       '#weight' => 1,
     ),
-    'read-more' => array(
-      '#theme' => 'link',
-      '#text' => t('group home'),
-      '#path' => 'node/' . $group->nid,
-      '#options' => array('attributes' => array('title' => 'group home')),
-      '#weight' => 2,
-      //'#prefix' => '<h3>',
-      //'#suffix' => '</h3>'
-    ),
+    //'read-more' => array(
+      //'#theme' => 'link',
+      //'#text' => t('group home'),
+      //'#path' => 'node/' . $group->nid,
+      //'#options' => array(
+        //'attributes' => array('title' => 'group home'),
+        //'html' => FALSE,
+      //),
+      //'#weight' => 2,
+      //'#prefix' => '<div>',
+      //'#suffix' => '</div>'
+    //),
     'status' => array(
       '#type' => 'markup',
       '#markup' => $privacy,
       '#weight' => 5,
+      '#prefix' => '<div>',
+      '#suffix' => '</div>'
     ),
   );
 
@@ -299,7 +311,7 @@ function collabco_groups_feature_build_group_header() {
 }
 
 function collabco_groups_feature_get_title_recursive($group) {
-  $title = $group->title;
+  $title = l($group->title,"node/{$group->nid}");
   if (!empty($group->og_group_ref['und'][0]['target_id'])) {
     $group_parent = node_load($group->og_group_ref['und'][0]['target_id']);
     $title = collabco_groups_feature_get_title_recursive($group_parent) . ' > ' . $title;
