@@ -174,13 +174,44 @@ function collabco_groups_feature_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'body',
     'label' => 'Body',
-    'required' => FALSE,
+    'required' => 0,
     'settings' => array(
-      'display_summary' => TRUE,
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'filtered_html' => 'filtered_html',
+          'full_html' => 0,
+          'php_code' => 0,
+          'plain_text' => 0,
+          'wiki' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 0,
+            ),
+            'php_code' => array(
+              'weight' => 11,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+            'wiki' => array(
+              'weight' => 0,
+            ),
+          ),
+        ),
+      ),
+      'display_summary' => 1,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'text',
       'settings' => array(
         'rows' => 20,
@@ -347,8 +378,8 @@ function collabco_groups_feature_field_default_field_instances() {
           'status' => TRUE,
         ),
         'prepopulate' => array(
-          'action' => 'disable',
-          'action_on_edit' => 0,
+          'action' => 'hide',
+          'action_on_edit' => 1,
           'fallback' => 'none',
           'og_context' => 0,
           'skip_perm' => 0,
@@ -404,14 +435,45 @@ function collabco_groups_feature_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'body',
-    'label' => 'Body',
-    'required' => FALSE,
+    'label' => 'Description',
+    'required' => 0,
     'settings' => array(
-      'display_summary' => TRUE,
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'filtered_html' => 'filtered_html',
+          'full_html' => 0,
+          'php_code' => 0,
+          'plain_text' => 0,
+          'wiki' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 0,
+            ),
+            'php_code' => array(
+              'weight' => 11,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+            'wiki' => array(
+              'weight' => 0,
+            ),
+          ),
+        ),
+      ),
+      'display_summary' => 1,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'text',
       'settings' => array(
         'rows' => 20,
@@ -526,8 +588,8 @@ function collabco_groups_feature_field_default_field_instances() {
           'status' => TRUE,
         ),
         'prepopulate' => array(
-          'action' => 'none',
-          'action_on_edit' => 0,
+          'action' => 'hide',
+          'action_on_edit' => 1,
           'fallback' => 'none',
           'og_context' => 0,
           'skip_perm' => 0,
@@ -594,6 +656,7 @@ function collabco_groups_feature_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Body');
   t('Comment');
+  t('Description');
   t('Determine if this is an OG group.');
   t('Group');
   t('Group visibility');
