@@ -264,11 +264,26 @@ function collabco_groups_feature_build_group_header() {
     $privacy = t('Public');
   }
 
+  // Build field values for the render array.
+  
+  // Build body field.
   if (!empty($group->body['und'][0]['summary'])) {
     $description = $group->body['und'][0]['summary'];
   }
   else
     $description = '';
+
+  // Build the group subscribe field.
+  $display = array(
+    'type' => 'og_group_subscribe',
+  );
+  $group_field = field_view_field('node', $group, 'group_group', $display);
+  // Remove label.
+  unset($group_field['#title']);
+  $group_field['#label_display'] = 'hidden';
+  $group_field['#weight'] = '6';
+
+
   // Build render array structure.
   $block = array();
   $block['content'] = array(
@@ -305,6 +320,7 @@ function collabco_groups_feature_build_group_header() {
       '#prefix' => '<div>',
       '#suffix' => '</div>'
     ),
+    'group' => $group_field,
   );
 
   return $block;
@@ -319,6 +335,14 @@ function collabco_groups_feature_get_title_recursive($group) {
   return $title;
 }
 
+function collabco_groups_feature_get_parent_recursive($group) {
+  if (!empty($group->og_group_ref['und'][0]['target_id'])) {
+    $group_parent = node_load($group->og_group_ref['und'][0]['target_id']);
+    return collabco_groups_feature_get_parent_recursive($group_parent);
+  }
+  return $group;
+}
+
 function collabco_groups_feature_preprocess_page(&$vars) {
   $vars['show_title'] = TRUE; // so that showtitle is true by default
   if (isset($vars['node'])) {
@@ -326,4 +350,23 @@ function collabco_groups_feature_preprocess_page(&$vars) {
       $vars['show_title'] = FALSE;
     }
   }
+}
+
+/**
+ * Implements hook_node_insert().
+ * 
+ * Set og context from url query, if its being used with entity prepopulate.
+ */
+function collabco_groups_feature_node_insert($node) { 
+  // Only look at groups.
+  if (empty($group->group_group['und'][0]['value']) || ($group->group_group['und'][0]['value'] !== '1')) {
+    return;
+  }
+  // And only look at subgroups.
+  if (empty($group->og_group_ref['und'][0]['target_id'])) {
+    return;
+  }
+
+  $base_group = collabco_groups_feature_get_parent_recursive($node);
+
 }
