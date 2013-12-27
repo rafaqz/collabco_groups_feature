@@ -45,8 +45,8 @@ function collabco_groups_feature_view_tab_title($node) {
  */
 function collabco_groups_feature_init() { 
   $params = drupal_get_query_parameters();
-  if (!empty($params['og_group_ref'])) {
-    $group = node_load($params['og_group_ref']);
+  if (!empty($params[OG_AUDIENCE_FIELD])) {
+    $group = node_load($params[OG_AUDIENCE_FIELD]);
     og_context('node', $group);
   }
   // Add OG Context for all subpaths of nodes that are groups.
@@ -180,7 +180,7 @@ function collabco_groups_feature_build_group_toolbar() {
 
   // Create the list off links for each node type that the user can add to the
   // group. 
-  $group_field_info = field_info_field('og_group_ref');
+  $group_field_info = field_info_field(OG_AUDIENCE_FIELD);
   if (!empty($group_field_info)) {
     // Build render array structure.
     $block = array();
@@ -203,7 +203,7 @@ function collabco_groups_feature_build_group_toolbar() {
     );
 
     // Build query array for entity reference prepoluate
-    $query_array = array('og_group_ref' => $group['gid']);
+    $query_array = array(OG_AUDIENCE_FIELD => $group['gid']);
     $options = array('query' => $query_array);
 
     // Add a list item for each node type, as a link to its node/add page.
@@ -328,19 +328,45 @@ function collabco_groups_feature_build_group_header() {
 
 function collabco_groups_feature_get_title_recursive($group) {
   $title = l($group->title,"node/{$group->nid}");
-  if (!empty($group->og_group_ref['und'][0]['target_id'])) {
-    $group_parent = node_load($group->og_group_ref['und'][0]['target_id']);
-    $title = collabco_groups_feature_get_title_recursive($group_parent) . ' > ' . $title;
+  if (empty($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id'])) {
+    return $title;
   }
-  return $title;
+  $group_parent = node_load($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id']);
+  return collabco_groups_feature_get_title_recursive($group_parent) . ' > ' . $title;
 }
 
 function collabco_groups_feature_get_parent_recursive($group) {
-  if (!empty($group->og_group_ref['und'][0]['target_id'])) {
-    $group_parent = node_load($group->og_group_ref['und'][0]['target_id']);
-    return collabco_groups_feature_get_parent_recursive($group_parent);
+  if (empty($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id'])) {
+    return $group;
   }
-  return $group;
+  $group_parent = node_load($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id']);
+  return collabco_groups_feature_get_parent_recursive($group_parent);
+}
+
+/**
+ * Get all child groups, currently only nodes.
+ *
+ * @return array of group ids.
+ */
+function collabco_groups_feature_get_children_recursive($gids) {
+  // Get children of all passed gids.
+  $entity_type = 'node';
+  if (!empty($gids[$entity_type])) {
+    $result = db_query('SELECT b.gid, b.group_type
+    FROM og_membership a, og_membership b
+    WHERE a.gid IN (:gids)
+    AND a.etid = b.gid 
+    AND b.group_type = :entity_type',
+    array(':entity_type' => $entity_type, ':gids' => $gids[$entity_type]));
+    foreach ($result as $record) {
+      $child_gids[$record->group_type][$record->gid] = $record->gid;
+    }
+  }
+  if (empty($child_gids)) {
+    return array();
+  }
+  $grandchild_gids = collabco_groups_feature_get_children_recursive($child_gids);
+  return array_merge($child_gids, $grandchild_gids);
 }
 
 function collabco_groups_feature_preprocess_page(&$vars) {
@@ -353,20 +379,77 @@ function collabco_groups_feature_preprocess_page(&$vars) {
 }
 
 /**
- * Implements hook_node_insert().
+ * Implements hook_entity_insert().
  * 
- * Set og context from url query, if its being used with entity prepopulate.
+ * Add new subgroup gid to group terms.
  */
-function collabco_groups_feature_node_insert($node) { 
+function collabco_groups_feature_entity_insert($entity,$type) { 
+  switch ($type) {
+  case 'node':
+    collabco_groups_feature_add_parent_members($entity,$type);
+    break;
+  case 'taxonomy_term':
+    collabco_groups_feature_add_child_groups_to_entity($entity,$type);
+    break;
+  }
+}
+
+function collabco_groups_feature_add_child_groups_to_entity($entity,$type) { 
+  // Recursive function needs an array of gids by entity type.
+  $wrapper = entity_metadata_wrapper($type, $entity);
+  $gids = array('node' => $wrapper->{OG_AUDIENCE_FIELD}->raw()); 
+  $child_gids = collabco_groups_feature_get_children_recursive($gids);
+  if (empty($child_gids['node'])) { 
+    return;
+  }
+  $values = array(
+    'entity_type' => $type, 
+    'entity' => $entity, 
+    'field_name' => OG_AUDIENCE_FIELD, 
+    'state' => OG_STATE_ACTIVE,
+  );
+  foreach ($child_gids['node'] as $gid) {
+    og_group('node', $gid, $values);
+    //$wrapper->{OG_AUDIENCE_FIELD}[] = $gid;
+  }
+}
+
+function collabco_groups_feature_add_parent_members($entity,$type) { 
   // Only look at groups.
-  if (empty($group->group_group['und'][0]['value']) || ($group->group_group['und'][0]['value'] !== '1')) {
+  if (empty($entity->group_group['und'][0]['value']) || ($entity->group_group['und'][0]['value'] !== 1)) {
     return;
   }
   // And only look at subgroups.
-  if (empty($group->og_group_ref['und'][0]['target_id'])) {
+  if (empty($entity->{OG_AUDIENCE_FIELD}['und'][0]['target_id'])) {
     return;
   }
 
-  $base_group = collabco_groups_feature_get_parent_recursive($node);
+  //$base_group = collabco_groups_feature_get_parent_recursive($node);
+  // Find all taxonomy terms in the group.
+  //$gid = $base_group->nid;
+  $parent_gid = $group->{OG_AUDIENCE_FIELD}['und'][0]['target_id'];
+  $etids = collabco_groups_feature_get_group_entities('taxonomy_term', $parent_gid); 
+  // Add all terms from the parent group to the newly created group.
+  // This should be done directly with og_group to skip the load/save.
+  $terms = entity_load('taxonomy_term', $etids);
+  foreach ($terms as $term) {
+    $term->{OG_AUDIENCE_FIELD}['und'][]['target_id'] = $node->nid;
+    taxonomy_term_save($term);
+  }
+}
 
+function collabco_groups_feature_get_group_entities($entity_type, $bundle, $gid) { 
+  $query = db_select('og_membership', 'm')
+  ->fields('m', array('etid'))
+  ->condition('entity_type', $entity_type, '=')
+  ->condition('entity_type', $entity_type, '=')
+  ->condition('state', OG_STATE_ACTIVE, '=')
+  ->condition('gid', $gid, '=');
+  $result = $query->execute();
+
+  $etids = array();
+  foreach ($result as $row) {
+    $etids[] = $row->etid;
+  }
+  return $etids;
 }
