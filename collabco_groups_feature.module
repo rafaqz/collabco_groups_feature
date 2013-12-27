@@ -142,21 +142,42 @@ function collabco_groups_feature_block_view($delta='') {
 
 } 
 
+/**
+ * Build a group list block.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
 function collabco_groups_feature_build_user_groups_list() {
   global $base_url;
   global $user;
   $block = array();
 
   // Build groups section.
-  $group_links = '';
+  $group_links = array();
   $groups = og_get_groups_by_user($user);
   if (!empty($groups)) {
+    $block['content'] = array(
+      '#type' => 'container',
+      '#attributes' => array('class' => array('group-list')),
+      'title' => array(
+        '#type' => 'markup',
+        '#markup' => 'Your Groups',
+        '#weight' => 0,
+        '#prefix' => '<h5>',
+        '#suffix' => '</h5>'
+      ),
+      'group_list' => array(
+        '#theme' => 'item_list',
+        '#weight' => 2,
+      ),
+    );
     foreach ($groups['node'] as $key => $gid) {
       $node = node_load($gid);
       // Replace this with render arrays...
-      $group_links .= '<li><a href="' . $base_url . '/node/' . $node->nid . '">' . $node->title . '</a></li>';
+      $url ='node/' . $node->nid; 
+      $block['content']['group_list']['#items'][$node->nid] = l($node->title, $url);
     }
-    $block['content'] = '<div><h6>Your Groups:</h6><ul>' . $group_links . '</ul></div>';
   }
   return $block;
 } 
