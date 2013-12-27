@@ -12,6 +12,87 @@ function collabco_groups_feature_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
+  $export['collabco_groups_feature-group_header'] = array(
+    'cache' => 1,
+    'css_class' => 'span8',
+    'custom' => 0,
+    'delta' => 'group_header',
+    'module' => 'collabco_groups_feature',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'custom_theme' => array(
+        'region' => 'main_upper',
+        'status' => 1,
+        'theme' => 'custom_theme',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['collabco_groups_feature-group_toolbar'] = array(
+    'cache' => 1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'group_toolbar',
+    'module' => 'collabco_groups_feature',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'custom_theme' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'custom_theme',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['collabco_groups_feature-user_groups_list'] = array(
+    'cache' => 1,
+    'css_class' => 'span4',
+    'custom' => 0,
+    'delta' => 'user_groups_list',
+    'module' => 'collabco_groups_feature',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'custom_theme' => array(
+        'region' => 'main_upper',
+        'status' => 1,
+        'theme' => 'custom_theme',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
   $export['views-group_users-block'] = array(
     'cache' => -1,
     'css_class' => 'group-members padding-reset',
