@@ -573,7 +573,7 @@ function collabco_groups_feature_field_default_field_instances() {
     'options_limit_empty_behaviour' => 0,
     'options_limit_fields' => array(
       'body' => 0,
-      'og_group_ref' => 0,
+      'group_group' => 0,
     ),
     'required' => 0,
     'settings' => array(
@@ -583,7 +583,7 @@ function collabco_groups_feature_field_default_field_instances() {
             'widget_type' => 'entityreference_autocomplete',
           ),
           'default' => array(
-            'widget_type' => 'options_select',
+            'widget_type' => 'options_buttons',
           ),
           'status' => TRUE,
         ),
