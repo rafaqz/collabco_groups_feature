@@ -311,7 +311,7 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['arguments']['gid']['summary_options']['items_per_page'] = '25';
 
   /* Display: Term Reference */
-  $handler = $view->new_display('term_reference', 'Term Reference', 'term_reference_1');
+  $handler = $view->new_display('term_reference', 'Term Reference', 'term_reference');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
