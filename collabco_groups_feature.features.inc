@@ -41,7 +41,7 @@ function collabco_groups_feature_node_info() {
     'group' => array(
       'name' => t('Group'),
       'base' => 'node_content',
-      'description' => '',
+      'description' => t('Basic group.'),
       'has_title' => '1',
       'title_label' => t('Group Name'),
       'help' => '',
