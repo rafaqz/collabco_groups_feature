@@ -287,18 +287,19 @@ function collabco_groups_feature_build_group_header() {
 
   // Build field values for the render array.
 
-  // Build the body field.
-  $display = array('type' => 'teaser');
-  $body_teaser = field_view_field('node', $node, 'body' ,$display);
-  // Remove label.
-  $body_teaser['#label_display'] = 'hidden';
-  $body_teaser['#weight'] = '2';
+  // Build the description (body) field.
+  $description = field_view_field('node', $node, 'body', array(
+    'type' => 'text_summary_or_trimmed',
+    'label'=>'hidden',
+    'settings'=>array('trim_length' => 150),
+  ));
+  $description['#weight'] = '2';
 
   // Build the group subscribe field.
-  $display = array('type' => 'og_group_subscribe');
-  $group_field = field_view_field('node', $node, 'group_group', $display);
-  // Remove label.
-  $group_field['#label_display'] = 'hidden';
+  $group_field = field_view_field('node', $node, 'group_group', array(
+    'type' => 'og_group_subscribe',
+    'label'=>'hidden',
+  ));
   $group_field['#weight'] = '4';
 
 
@@ -314,7 +315,8 @@ function collabco_groups_feature_build_group_header() {
       '#prefix' => '<div>',
       '#suffix' => '</div>'
     ),
-    'teaser' => $body_teaser,
+    'description' => $description,
+    'group' => $group_field,
     'status' => array(
       '#type' => 'markup',
       '#markup' => $privacy,
@@ -322,7 +324,6 @@ function collabco_groups_feature_build_group_header() {
       '#prefix' => '<div>',
       '#suffix' => '</div>'
     ),
-    'group' => $group_field,
   );
 
   return $block;
