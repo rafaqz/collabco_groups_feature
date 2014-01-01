@@ -31,7 +31,9 @@ function collabco_groups_feature_menu_alter(&$items) {
 
 function collabco_groups_feature_view_tab_title($node) {
   switch ($node->type) {
-  case 'group' || 'closed_group' || 'project':
+  case 'group':
+  case 'closed_group':
+  case 'project':
     return t('About');
     break;
   }
