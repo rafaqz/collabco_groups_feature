@@ -272,13 +272,13 @@ function collabco_groups_feature_build_group_header() {
   if (empty($context)) {
     return;
   }
-  $group = node_load($context['gid']);
+  $node = node_load($context['gid']);
 
   // Get group title and all parent group titles.
-  $title = collabco_groups_feature_get_title_recursive($group);
+  $title = collabco_groups_feature_get_title_recursive($node);
 
   // Determine group privacy status.
-  if (!empty($group->group_access['und'][0]['value']) && $group->group_access['und'][0]['value'] === '1') {
+  if (!empty($node->group_access['und'][0]['value']) && $node->group_access['und'][0]['value'] === '1') {
     $privacy = t('Private');
   }
   else {
@@ -286,23 +286,20 @@ function collabco_groups_feature_build_group_header() {
   }
 
   // Build field values for the render array.
-  
-  // Build body field.
-  if (!empty($group->body['und'][0]['summary'])) {
-    $description = $group->body['und'][0]['summary'];
-  }
-  else
-    $description = '';
+
+  // Build the body field.
+  $display = array('type' => 'teaser');
+  $body_teaser = field_view_field('node', $node, 'body' ,$display);
+  // Remove label.
+  $body_teaser['#label_display'] = 'hidden';
+  $body_teaser['#weight'] = '2';
 
   // Build the group subscribe field.
-  $display = array(
-    'type' => 'og_group_subscribe',
-  );
-  $group_field = field_view_field('node', $group, 'group_group', $display);
+  $display = array('type' => 'og_group_subscribe');
+  $group_field = field_view_field('node', $node, 'group_group', $display);
   // Remove label.
-  unset($group_field['#title']);
   $group_field['#label_display'] = 'hidden';
-  $group_field['#weight'] = '6';
+  $group_field['#weight'] = '4';
 
 
   // Build render array structure.
@@ -317,27 +314,11 @@ function collabco_groups_feature_build_group_header() {
       '#prefix' => '<div>',
       '#suffix' => '</div>'
     ),
-    'description' => array(
-      '#type' => 'markup',
-      '#markup' => $description,
-      '#weight' => 1,
-    ),
-    //'read-more' => array(
-      //'#theme' => 'link',
-      //'#text' => t('group home'),
-      //'#path' => 'node/' . $group->nid,
-      //'#options' => array(
-        //'attributes' => array('title' => 'group home'),
-        //'html' => FALSE,
-      //),
-      //'#weight' => 2,
-      //'#prefix' => '<div>',
-      //'#suffix' => '</div>'
-    //),
+    'teaser' => $body_teaser,
     'status' => array(
       '#type' => 'markup',
       '#markup' => $privacy,
-      '#weight' => 5,
+      '#weight' => 8,
       '#prefix' => '<div>',
       '#suffix' => '</div>'
     ),
