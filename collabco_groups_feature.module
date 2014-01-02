@@ -9,7 +9,6 @@ include_once 'collabco_groups_feature.features.inc';
 /**
  * Implements hook_menu().
  */
-
 function collabco_groups_feature_menu() {
   $items['node/%/taxonomy/%/add'] = array(
     'page callback' => 'collabco_groups_feature_term_add_page',
@@ -29,13 +28,14 @@ function collabco_groups_feature_menu_alter(&$items) {
   $items['node/%node/view']['title arguments'] = array(1);
 }
 
+/**
+ * Set group view tab in title callback for nodes.
+ *
+ * @return string
+ */
 function collabco_groups_feature_view_tab_title($node) {
-  switch ($node->type) {
-  case 'group':
-  case 'closed_group':
-  case 'project':
+  if (og_is_group('node',$node->nid)) {
     return t('About');
-    break;
   }
   return t('View');
 }
@@ -61,8 +61,8 @@ function collabco_groups_feature_init() {
     // Load the node from the current path.
     if ($group = node_load(arg(1))) {
       // Check if this is a group node.
-      if (!empty($group->group_group['und'][0]['value'])) {
-        if ($group->group_group['und'][0]['value'] === '1') {
+      if (!empty($group->{OG_GROUP_FIELD}['und'][0]['value'])) {
+        if ($group->{OG_GROUP_FIELD}['und'][0]['value'] === '1') {
         // Set the og context to the group node from the path.
           og_context('node', $group);
         }
@@ -176,7 +176,6 @@ function collabco_groups_feature_build_user_groups_list() {
     );
     foreach ($groups['node'] as $key => $gid) {
       $node = node_load($gid);
-      // Replace this with render arrays...
       $url ='node/' . $node->nid; 
       $block['content']['group_list']['#items'][$node->nid] = l($node->title, $url);
     }
@@ -201,13 +200,14 @@ function collabco_groups_feature_build_group_toolbar() {
   }
   $block['og_context'] = $group;
 
-  // Create the list off links for each node type that the user can add to the
-  // group. 
+  // Create list of links for each node type that the user can add to the group. 
   $group_field_info = field_info_field(OG_AUDIENCE_FIELD);
   if (!empty($group_field_info)) {
     // Build render array structure.
+    $node_links = collabco_groups_feature_add_content_link($group_field_info['bundles']['node'], $group['gid']);
+    $term_links = collabco_groups_feature_add_term_link($group_field_info['bundles']['taxonomy_term'], $group['gid']);
     $block = array();
-    $content = array(
+    $block['content'] = array(
       '#type' => 'container',
       '#attributes' => array('class' => array('group-toolbar')),
       'content' => array(
@@ -218,49 +218,79 @@ function collabco_groups_feature_build_group_toolbar() {
       'add-content-list' => array(
         '#theme' => 'item_list',
         '#weight' => 1,
+        '#items' => $node_links,
       ),
       'add-term-list' => array(
         '#theme' => 'item_list',
         '#weight' => 2,
+        '#items' => $term_links,
       ),
     );
-
-    // Build query array for entity reference prepoluate
-    $query_array = array(OG_AUDIENCE_FIELD => $group['gid']);
-    $options = array('query' => $query_array);
-
-    // Add a list item for each node type, as a link to its node/add page.
-    foreach($group_field_info['bundles']['node'] as $bundle) {
-      // Construct permission name string for the node bundle.
-      $perm_string = "create $bundle content";
-      // Add menu link if the current user can create nodes in the bundle.
-      if (user_access($perm_string)) {
-        $text = t('Create ') . node_type_get_name($bundle);
-        $url = "node/add/" . str_replace('_', '-', $bundle);
-        $content['add-content-list']['#items'][$bundle] = l($text, $url, $options); 
-      }
-    }
-
-    // Add a list item for each taxonomy vocabulary, as a link to its term/add
-    // and vocabulary view.
-    foreach($group_field_info['bundles']['taxonomy_term'] as $bundle) {
-      $vocabulary = taxonomy_vocabulary_machine_name_load($bundle);
-      // Construct permission name string for the taxonomy bundle.
-      $perm_string = "edit terms in " .  $vocabulary->vid;
-      // Add menu link if the current user can create taxonomy terms in the bundle.
-      if (user_access($perm_string)) {
-        $text = t('Add ') . $vocabulary->name;
-        $url = "node/{$group['gid']}/taxonomy/$bundle/add/";
-        $content['add-term-list']['#items'][$bundle] = l($text, $url, $options); 
-        // Link to view to edit all terms in vocab and group.
-        $text = t('View ') . $vocabulary->name . ' ' . t('vocabulary');
-        $url = "node/{$group['gid']}/taxonomy/$bundle/";
-        $content['add-term-list']['#items']["edit-$bundle"] = l($text, $url); 
-      }
-    }
-    $block['content'] = $content;
     return $block;
   }
+}
+
+/**
+ * Add a list item for each node bundle, as a link to its node/add page.
+ *
+ * @return array
+ */
+function collabco_groups_feature_add_content_link($bundles, $gid = NULL, $options = array()) {
+  // Add menu link if the current user can create nodes in the bundle.
+  $items = array();
+  $options = array_merge($options, collabco_groups_feature_prepopulate_query($gid));
+  foreach ($bundles as $bundle) {
+    $perm_string = "create $bundle content";
+    if (user_access($perm_string)) {
+      // Build query array for entity reference prepoluate
+      // Construct permission name string for the node bundle.
+      $text = t('Create ') . node_type_get_name($bundle);
+      $url = "node/add/" . str_replace('_', '-', $bundle);
+      $items[$bundle] = l($text, $url, $options); 
+    }
+  }
+  return $items;
+}  
+
+/**
+ * Add a list item for each taxonomy vocabulary, as a link to its term/add page 
+ * and vocabulary view.
+ *
+ * @return array
+ */
+function collabco_groups_feature_add_term_link($bundles, $gid = NULL, $options = array()) {
+  $items = array();
+  $options = array_merge($options, collabco_groups_feature_prepopulate_query($gid));
+  foreach ($bundles as $bundle) {
+    $vocabulary = taxonomy_vocabulary_machine_name_load($bundle);
+    $perm_string = "edit terms in " .  $vocabulary->vid;
+    // Construct permission name string for the taxonomy bundle.
+    // Add menu link if the current user can create taxonomy terms in the bundle.
+    if (user_access($perm_string)) {
+      $text = t('Add ') . $vocabulary->name;
+      $url = "node/$gid/taxonomy/$bundle/add/";
+      $items[$bundle] = l($text, $url, $options); 
+      // Link to view to edit all terms in vocab and group.
+      $text = t('View ') . $vocabulary->name . ' ' . t('vocabulary');
+      $url = "node/$gid/taxonomy/$bundle/";
+      $items["view-$bundle"] = l($text, $url); 
+    }
+  } 
+  return $items;
+}  
+
+/**
+ * Get prepoulate query array to add group context for links.
+ *
+ * @return array $options
+ */
+function collabco_groups_feature_prepopulate_query($gid) {
+  if ($gid) {
+    $query_array = array(OG_AUDIENCE_FIELD => $gid);
+    $options = array('query' => $query_array);
+    return $options;
+  }
+  return array();
 }
 
 /**
@@ -270,24 +300,22 @@ function collabco_groups_feature_build_group_toolbar() {
  *   A Drupal build array.
  */
 function collabco_groups_feature_build_group_header() {
-  $context = og_context();
-  if (empty($context)) {
+  $og_context = og_context();
+  if (empty($og_context)) {
     return;
   }
-  $node = node_load($context['gid']);
+  $node = node_load($og_context['gid']);
 
   // Get group title and all parent group titles.
   $title = collabco_groups_feature_get_title_recursive($node);
 
   // Determine group privacy status.
-  if (!empty($node->group_access['und'][0]['value']) && $node->group_access['und'][0]['value'] === '1') {
+  if (!empty($node->{OG_ACCESS_FIELD}['und'][0]['value']) && $node->{OG_ACCESS_FIELD}['und'][0]['value'] === '1') {
     $privacy = t('Private');
   }
   else {
     $privacy = t('Public');
   }
-
-  // Build field values for the render array.
 
   // Build the description (body) field.
   $description = field_view_field('node', $node, 'body', array(
@@ -298,12 +326,11 @@ function collabco_groups_feature_build_group_header() {
   $description['#weight'] = '2';
 
   // Build the group subscribe field.
-  $group_field = field_view_field('node', $node, 'group_group', array(
+  $group_field = field_view_field('node', $node, 'OG_GROUP_FIELD', array(
     'type' => 'og_group_subscribe',
     'label'=>'hidden',
   ));
   $group_field['#weight'] = '4';
-
 
   // Build render array structure.
   $block = array();
@@ -327,10 +354,14 @@ function collabco_groups_feature_build_group_header() {
       '#suffix' => '</div>'
     ),
   );
-
   return $block;
 }
 
+/**
+ * Get main parent group title, currently only nodes.
+ *
+ * @return array of group ids.
+ */
 function collabco_groups_feature_get_title_recursive($group) {
   $title = l($group->title,"node/{$group->nid}");
   if (empty($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id'])) {
@@ -340,6 +371,11 @@ function collabco_groups_feature_get_title_recursive($group) {
   return collabco_groups_feature_get_title_recursive($group_parent) . ' > ' . $title;
 }
 
+/**
+ * Get all parent groups, currently only nodes.
+ *
+ * @return object - the group entity.
+ */
 function collabco_groups_feature_get_parent_recursive($group) {
   if (empty($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id'])) {
     return $group;
@@ -360,7 +396,7 @@ function collabco_groups_feature_get_children_recursive($gids) {
     $result = db_query('SELECT b.gid, b.group_type
     FROM og_membership a, og_membership b
     WHERE a.gid IN (:gids)
-    AND a.etid = b.gid 
+    AND a.etid = b.gid<F5> 
     AND b.group_type = :entity_type',
     array(':entity_type' => $entity_type, ':gids' => $gids[$entity_type]));
     foreach ($result as $record) {
@@ -374,13 +410,16 @@ function collabco_groups_feature_get_children_recursive($gids) {
   return array_merge($child_gids, $grandchild_gids);
 }
 
+/**
+ * Implements hook_preprocess_page().
+ */
 function collabco_groups_feature_preprocess_page(&$vars) {
   $vars['show_title'] = TRUE; // so that showtitle is true by default
-  if (isset($vars['node'])) {
-    if ($vars['node']->type == 'project') { 
+  //if (isset($vars['node']->{OG_GROUP_FIELD})) {
+    //if ($vars['node']->{OG_GROUP_FIELD}['und'][0]['value'] === '1') { 
       $vars['show_title'] = FALSE;
-    }
-  }
+    //}
+  //}
 }
 
 /**
@@ -391,7 +430,7 @@ function collabco_groups_feature_preprocess_page(&$vars) {
 function collabco_groups_feature_entity_insert($entity,$type) { 
   switch ($type) {
   case 'node':
-    collabco_groups_feature_add_parent_members($entity,$type);
+    collabco_groups_feature_add_parent_terms_to_group($entity,$type);
     break;
   case 'taxonomy_term':
     collabco_groups_feature_add_child_groups_to_entity($entity,$type);
@@ -415,25 +454,24 @@ function collabco_groups_feature_add_child_groups_to_entity($entity,$type) {
   );
   foreach ($child_gids['node'] as $gid) {
     og_group('node', $gid, $values);
-    //$wrapper->{OG_AUDIENCE_FIELD}[] = $gid;
   }
 }
-
-function collabco_groups_feature_add_parent_members($entity,$type) { 
+/**
+ * Add all taxonomy terms from the parent group to the newly created group.
+ */
+function collabco_groups_feature_add_parent_terms_to_group($entity,$type) { 
+  $wrapper = entity_metadata_wrapper($type, $entity);
   // Only look at groups.
-  if (empty($entity->group_group['und'][0]['value']) || ($entity->group_group['und'][0]['value'] !== 1)) {
+  if (!$wrapper->__isset(OG_GROUP_FIELD) || $wrapper->{OG_GROUP_FIELD}->value() == '0') {
     return;
   }
   // And only look at subgroups.
-  if (empty($entity->{OG_AUDIENCE_FIELD}['und'][0]['target_id'])) {
+  if (!$wrapper->__isset(OG_AUDIENCE_FIELD) || !($wrapper->{OG_AUDIENCE_FIELD}->value())) {
     return;
   }
-
-  //$base_group = collabco_groups_feature_get_parent_recursive($node);
   // Find all taxonomy terms in the group.
-  //$gid = $base_group->nid;
-  $parent_gid = $group->{OG_AUDIENCE_FIELD}['und'][0]['target_id'];
-  $etids = collabco_groups_feature_get_group_entities('taxonomy_term', $parent_gid); 
+  $gids = array('node' => $wrapper->{OG_AUDIENCE_FIELD}->raw()); 
+  $etids = collabco_groups_feature_get_group_member_ids('taxonomy_term', $gids, 'node'); 
   // Add all terms from the parent group to the newly created group.
   // This should be done directly with og_group to skip the load/save.
   $terms = entity_load('taxonomy_term', $etids);
@@ -443,13 +481,13 @@ function collabco_groups_feature_add_parent_members($entity,$type) {
   }
 }
 
-function collabco_groups_feature_get_group_entities($entity_type, $bundle, $gid) { 
+function collabco_groups_feature_get_group_member_ids($entity_type, $gids, $group_type) { 
   $query = db_select('og_membership', 'm')
   ->fields('m', array('etid'))
   ->condition('entity_type', $entity_type, '=')
-  ->condition('entity_type', $entity_type, '=')
+  ->condition('group_type', $group_type, '=')
   ->condition('state', OG_STATE_ACTIVE, '=')
-  ->condition('gid', $gid, '=');
+  ->condition('gid', $gids[$group_type], 'IN');
   $result = $query->execute();
 
   $etids = array();
@@ -457,4 +495,28 @@ function collabco_groups_feature_get_group_entities($entity_type, $bundle, $gid)
     $etids[] = $row->etid;
   }
   return $etids;
+}
+
+/**
+ * Add a permissions aware create-content link to a view area.
+ */
+function collabco_groups_feature_view_content_link($view, $bundle, $area) {
+  global $user;
+  $group = og_context();
+  if (empty($group) or !og_is_member($group['group_type'], $group['gid'], 'user', $user)) {
+    return;
+  }
+  $links = collabco_groups_feature_add_content_link(array($bundle), $group['gid']);
+  if ($links) {
+    $options = array(
+        'id' => 'area',
+        'table' => 'views',
+        'field' => 'area',
+        'empty' => FALSE,
+        'content' => $links[$bundle],
+        'format' => 'filtered_html',
+        'tokenize' => 0,
+    );
+    $view->display_handler->set_option($area, array('text' => $options));
+  }
 }
