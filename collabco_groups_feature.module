@@ -141,7 +141,6 @@ function collabco_groups_feature_block_view($delta='') {
       $block = collabco_groups_feature_build_user_groups_list();
       return $block;
   }
-
 } 
 
 /**
@@ -396,7 +395,8 @@ function collabco_groups_feature_get_children_recursive($gids) {
     $result = db_query('SELECT b.gid, b.group_type
     FROM og_membership a, og_membership b
     WHERE a.gid IN (:gids)
-    AND a.etid = b.gid<F5> 
+    AND a.etid = b.gid 
+    AND a.entity_type = :entity_type
     AND b.group_type = :entity_type',
     array(':entity_type' => $entity_type, ':gids' => $gids[$entity_type]));
     foreach ($result as $record) {
