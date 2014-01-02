@@ -15,8 +15,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'create closed_group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
@@ -26,8 +25,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'create group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
@@ -37,8 +35,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'delete any closed_group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
@@ -48,8 +45,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'delete any group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
@@ -59,8 +55,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'delete own closed_group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
@@ -70,8 +65,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'delete own group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
@@ -81,8 +75,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'edit any closed_group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
@@ -92,8 +85,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'edit any group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
@@ -103,8 +95,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'edit own closed_group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
@@ -114,8 +105,7 @@ function collabco_groups_feature_user_default_permissions() {
     'name' => 'edit own group content',
     'roles' => array(
       'Admin' => 'Admin',
-      'Community Moderator' => 'Community Moderator',
-      'Content Manager' => 'Content Manager',
+      'Moderator' => 'Moderator',
     ),
     'module' => 'node',
   );
