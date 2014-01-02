@@ -326,7 +326,7 @@ function collabco_groups_feature_build_group_header() {
   $description['#weight'] = '2';
 
   // Build the group subscribe field.
-  $group_field = field_view_field('node', $node, 'OG_GROUP_FIELD', array(
+  $group_field = field_view_field('node', $node, OG_GROUP_FIELD, array(
     'type' => 'og_group_subscribe',
     'label'=>'hidden',
   ));
