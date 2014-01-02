@@ -471,13 +471,13 @@ function collabco_groups_feature_add_parent_terms_to_group($entity,$type) {
   }
   // Find all taxonomy terms in the group.
   $gids = array('node' => $wrapper->{OG_AUDIENCE_FIELD}->raw()); 
-  $etids = collabco_groups_feature_get_group_member_ids('taxonomy_term', $gids, 'node'); 
+  $tids = collabco_groups_feature_get_group_member_ids('taxonomy_term', $gids, 'node'); 
   // Add all terms from the parent group to the newly created group.
   // This should be done directly with og_group to skip the load/save.
-  $terms = entity_load('taxonomy_term', $etids);
-  foreach ($terms as $term) {
-    $term->{OG_AUDIENCE_FIELD}['und'][]['target_id'] = $node->nid;
-    taxonomy_term_save($term);
+  foreach ($tids as $tid) {
+    $term_wrapper = entity_metadata_wrapper('taxonomy_term',taxonomy_term_load($tid));
+    $term_wrapper->{OG_AUDIENCE_FIELD}[] = $wrapper->getIdentifier();
+    $term_wrapper->save();
   }
 }
 
