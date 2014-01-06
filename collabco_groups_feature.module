@@ -470,7 +470,7 @@ function collabco_groups_feature_add_parent_terms_to_group($entity,$type) {
     return;
   }
   // Find all taxonomy terms in the group.
-  $gids = array('node' => $wrapper->{OG_AUDIENCE_FIELD}->raw()); 
+  $gids = array('node' => array($wrapper->{OG_AUDIENCE_FIELD}->raw())); 
   $tids = collabco_groups_feature_get_group_member_ids('taxonomy_term', $gids, 'node'); 
   // Add all terms from the parent group to the newly created group.
   // This should be done directly with og_group to skip the load/save.
