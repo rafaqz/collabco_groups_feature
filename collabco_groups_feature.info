@@ -152,6 +152,7 @@ features[variable][] = comment_preview_closed_group
 features[variable][] = comment_preview_group
 features[variable][] = comment_subject_field_closed_group
 features[variable][] = comment_subject_field_group
+features[variable][] = field_bundle_settings_node__closed_group
 features[variable][] = field_bundle_settings_node__group
 features[variable][] = menu_options_closed_group
 features[variable][] = menu_options_group
