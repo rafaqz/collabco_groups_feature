@@ -66,7 +66,7 @@ function collabco_groups_feature_field_default_field_bases() {
   // Exported field_base: 'og_group_ref'
   $field_bases['og_group_ref'] = array(
     'active' => 1,
-    'cardinality' => -1,
+    'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'og_group_ref',
@@ -92,11 +92,18 @@ function collabco_groups_feature_field_default_field_bases() {
           'og_behavior' => array(
             'status' => TRUE,
           ),
+          'views-select-list' => array(
+            'status' => 0,
+          ),
         ),
         'membership_type' => 'og_membership_type_default',
+        'sort' => array(
+          'type' => 'none',
+        ),
         'target_bundles' => array(),
       ),
       'handler_submit' => 'Change handler',
+      'profile2_private' => FALSE,
       'target_type' => 'node',
     ),
     'translatable' => 0,
