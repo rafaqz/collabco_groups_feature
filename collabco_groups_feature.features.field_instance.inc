@@ -86,9 +86,8 @@ function collabco_groups_feature_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'og_ui',
         'settings' => array(),
-        'type' => 'og_list_default',
+        'type' => 'hidden',
         'weight' => 1,
       ),
       'teaser' => array(
@@ -102,7 +101,7 @@ function collabco_groups_feature_field_default_field_instances() {
     'entityconnect_unload_add' => 1,
     'entityconnect_unload_edit' => 1,
     'field_name' => 'og_group_ref',
-    'label' => 'Make this available only to the following groups',
+    'label' => 'Groups audience',
     'required' => 0,
     'settings' => array(
       'behaviors' => array(
@@ -143,7 +142,7 @@ function collabco_groups_feature_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 32,
+      'weight' => 2,
     ),
   );
 
@@ -218,7 +217,7 @@ function collabco_groups_feature_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 31,
+      'weight' => 1,
     ),
   );
 
@@ -241,10 +240,13 @@ function collabco_groups_feature_field_default_field_instances() {
         'weight' => 2,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'label' => 'inline',
+        'module' => 'og_ui',
+        'settings' => array(
+          'field_name' => FALSE,
+        ),
+        'type' => 'og_group_subscribe',
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'node',
@@ -269,7 +271,7 @@ function collabco_groups_feature_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 32,
+      'weight' => 3,
     ),
     'widget_type' => 'options_select',
   );
@@ -295,10 +297,13 @@ function collabco_groups_feature_field_default_field_instances() {
         'weight' => 1,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'label' => 'inline',
+        'module' => 'og_ui',
+        'settings' => array(
+          'field_name' => FALSE,
+        ),
+        'type' => 'og_group_subscribe',
+        'weight' => 1,
       ),
     ),
     'display_label' => 1,
@@ -328,7 +333,7 @@ function collabco_groups_feature_field_default_field_instances() {
         'og_hide' => TRUE,
       ),
       'type' => 'options_onoff',
-      'weight' => 0,
+      'weight' => 2,
     ),
   );
 
@@ -348,17 +353,18 @@ function collabco_groups_feature_field_default_field_instances() {
         'weight' => 3,
       ),
       'teaser' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'og_ui',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'og_list_default',
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'node',
     'entityconnect_unload_add' => 1,
     'entityconnect_unload_edit' => 1,
     'field_name' => 'og_group_ref',
-    'label' => 'Groups audience',
+    'label' => 'Parent Group',
     'options_limit' => 0,
     'options_limit_empty_behaviour' => 0,
     'options_limit_fields' => array(
@@ -405,7 +411,7 @@ function collabco_groups_feature_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 33,
+      'weight' => 4,
     ),
   );
 
@@ -430,7 +436,7 @@ function collabco_groups_feature_field_default_field_instances() {
           'trim_length' => 600,
         ),
         'type' => 'text_summary_or_trimmed',
-        'weight' => 1,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -496,7 +502,7 @@ function collabco_groups_feature_field_default_field_instances() {
     'description' => 'Determine if this is an OG group.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'og_ui',
         'settings' => array(
           'field_name' => FALSE,
@@ -505,10 +511,13 @@ function collabco_groups_feature_field_default_field_instances() {
         'weight' => 1,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'label' => 'inline',
+        'module' => 'og_ui',
+        'settings' => array(
+          'field_name' => 0,
+        ),
+        'type' => 'og_group_subscribe',
+        'weight' => 1,
       ),
     ),
     'display_label' => 1,
@@ -538,7 +547,7 @@ function collabco_groups_feature_field_default_field_instances() {
         'og_hide' => TRUE,
       ),
       'type' => 'options_onoff',
-      'weight' => 0,
+      'weight' => 2,
     ),
   );
 
@@ -551,24 +560,25 @@ function collabco_groups_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'og_ui',
         'settings' => array(),
         'type' => 'og_list_default',
         'weight' => 2,
       ),
       'teaser' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'og_ui',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'og_list_default',
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'node',
     'entityconnect_unload_add' => 1,
     'entityconnect_unload_edit' => 1,
     'field_name' => 'og_group_ref',
-    'label' => 'Groups audience',
+    'label' => 'Parent Group',
     'options_limit' => 0,
     'options_limit_empty_behaviour' => 0,
     'options_limit_fields' => array(
@@ -615,7 +625,7 @@ function collabco_groups_feature_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 31,
+      'weight' => 3,
     ),
   );
 
@@ -661,7 +671,7 @@ function collabco_groups_feature_field_default_field_instances() {
   t('Group visibility');
   t('Groups audience');
   t('If you do not select any groups, then it will be visible to all members.');
-  t('Make this available only to the following groups');
+  t('Parent Group');
   t('Request message');
   t('This is the text a user may send to the group administrators.');
 
