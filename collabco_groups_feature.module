@@ -500,7 +500,7 @@ function collabco_groups_feature_get_group_member_ids($entity_type, $gids, $grou
 /**
  * Add a permissions aware create-content link to a view area.
  */
-function collabco_groups_feature_view_content_link($view, $bundle, $areas) {
+function collabco_groups_feature_view_content_link($view, $display_id, $bundle, $areas) {
   global $user;
   $group = og_context();
   if (empty($group) or !og_is_member($group['group_type'], $group['gid'], 'user', $user)) {
@@ -518,7 +518,8 @@ function collabco_groups_feature_view_content_link($view, $bundle, $areas) {
         'tokenize' => 0,
     );
     foreach ($areas as $area) {
-      $view->display_handler->set_option($area, array('text' => $options));
+      $view->add_item($display_id, $area, 'views', 'area', $options);
+      //$view->display_handler->set_option($area, array('text' => $options));
     }
   }
 }
@@ -538,7 +539,7 @@ function collabco_groups_feature_views_pre_view($view, $display_id, $args) {
   if (!empty($views_integration[$view->name][$display_id]['add_content_link'])) {
     $bundle = $views_integration[$view->name][$display_id]['add_content_link']['bundle'];
     $areas = $views_integration[$view->name][$display_id]['add_content_link']['areas'];
-    collabco_groups_feature_view_content_link($view, $bundle, $areas);
+    collabco_groups_feature_view_content_link($view, $display_id, $bundle, $areas);
   }
 }
 
