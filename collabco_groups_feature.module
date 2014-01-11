@@ -512,7 +512,7 @@ function collabco_groups_feature_view_content_link($view, $bundle, $areas) {
         'id' => 'area',
         'table' => 'views',
         'field' => 'area',
-        'empty' => FALSE,
+        'empty' => TRUE,
         'content' => $links[$bundle],
         'format' => 'filtered_html',
         'tokenize' => 0,
