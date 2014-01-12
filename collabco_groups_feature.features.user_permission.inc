@@ -10,6 +10,15 @@
 function collabco_groups_feature_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: 'administer group'.
+  $permissions['administer group'] = array(
+    'name' => 'administer group',
+    'roles' => array(
+      'Admin' => 'Admin',
+    ),
+    'module' => 'og',
+  );
+
   // Exported permission: 'create closed_group content'.
   $permissions['create closed_group content'] = array(
     'name' => 'create closed_group content',

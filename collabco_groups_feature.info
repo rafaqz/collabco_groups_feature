@@ -128,6 +128,7 @@ features[og_features_permission][] = node:group:view group_access field
 features[og_features_permission][] = node:group:view group_group field
 features[og_features_permission][] = node:group:view og_group_ref field
 features[og_features_permission][] = node:group:view og_user_node field
+features[user_permission][] = administer group
 features[user_permission][] = create closed_group content
 features[user_permission][] = create group content
 features[user_permission][] = delete any closed_group content
