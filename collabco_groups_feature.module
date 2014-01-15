@@ -539,9 +539,33 @@ function collabco_groups_feature_views_pre_view($view, $display_id, $args) {
     }
   }
   if (!empty($views_integration[$view->name][$display_id]['add_content_link'])) {
-    $bundle = $views_integration[$view->name][$display_id]['add_content_link']['bundle'];
+    $bundles = $views_integration[$view->name][$display_id]['add_content_link']['bundles'];
     $areas = $views_integration[$view->name][$display_id]['add_content_link']['areas'];
-    collabco_groups_feature_view_content_link($view, $display_id, $bundle, $areas);
+    collabco_groups_feature_view_content_link($view, $display_id, $bundles, $areas);
   }
+}
+
+/**
+ * Implements hook_collabco_integration().
+ */
+function collabco_groups_feature_collabco_integration() {
+  // Add links to views if a module wants to do that.
+  return array(
+    'collabco_groups_feature' => array(
+      'views' => array(
+        'subgroups' => array(
+          'group_page' => array(
+            'subscribe_flag' => array(
+              'group_type' => 'node',
+            ),
+            'add_content_link' => array(
+              'bundles' => array('closed_group', 'group'),
+              'areas' => array('header'),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }
 
