@@ -216,6 +216,7 @@ function collabco_groups_feature_build_group_toolbar() {
       ),
       'add-content-list' => array(
         '#theme' => 'item_list',
+        '#attributes' => array('class' => array('add-content')),
         '#weight' => 1,
         '#items' => $node_links,
       ),
