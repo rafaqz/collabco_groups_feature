@@ -174,19 +174,22 @@ function collabco_groups_feature_views_content_link($view, $display_id, $bundles
     return;
   }
 
-  $links = collabco_groups_feature_build_node_links($bundles, $group['gid']);
+  $links = array(
+    '#theme' => 'item_list',
+    '#attributes' => array('class' => array('add-content')),
+    '#items' => collabco_groups_feature_build_node_links($bundles, $group['gid'])
+  );
+  // Views wont render the array for us so we render now.
+  $rendered_links = drupal_render($links);
   if ($links) {
     $options = array(
-        'id' => 'area',
-        'table' => 'views',
-        'field' => 'area',
-        'empty' => TRUE,
-        'content' => array(
-          '#theme' => 'item_list',
-          '#items' => $links,
-        ),
-        'format' => 'filtered_html',
-        'tokenize' => 0,
+       'id' => 'area',
+       'table' => 'views',
+       'field' => 'area',
+       'empty' => TRUE,
+       'content' => $rendered_links,
+       'format' => 'filtered_html',
+       'tokenize' => 0,
     );
     foreach ($areas as $area) {
       $view->add_item($display_id, $area, 'views', 'area', $options);
