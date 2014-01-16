@@ -653,8 +653,8 @@ function collabco_groups_feature_views_default_views() {
     1 => '1',
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  /* Display: Group Page */
+  $handler = $view->new_display('page', 'Group Page', 'group_page');
   $handler->display->display_options['path'] = 'node/%/subgroups';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Subgroups';
