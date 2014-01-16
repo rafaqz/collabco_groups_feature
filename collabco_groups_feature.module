@@ -203,8 +203,8 @@ function collabco_groups_feature_build_group_toolbar() {
   $group_field_info = field_info_field(OG_AUDIENCE_FIELD);
   if (!empty($group_field_info)) {
     // Build render array structure.
-    $node_links = collabco_groups_feature_add_content_link($group_field_info['bundles']['node'], $group['gid']);
-    $term_links = collabco_groups_feature_add_term_link($group_field_info['bundles']['taxonomy_term'], $group['gid']);
+    $node_links = collabco_groups_feature_build_node_links($group_field_info['bundles']['node'], $group['gid']);
+    $term_links = collabco_groups_feature_build_term_links($group_field_info['bundles']['taxonomy_term'], $group['gid']);
     $block = array();
     $block['content'] = array(
       '#type' => 'container',
@@ -234,7 +234,7 @@ function collabco_groups_feature_build_group_toolbar() {
  *
  * @return array
  */
-function collabco_groups_feature_add_content_link($bundles, $gid = NULL, $options = array()) {
+function collabco_groups_feature_build_node_link($bundles, $gid = NULL, $options = array()) {
   // Add menu link if the current user can create nodes in the bundle.
   $items = array();
   $options = array_merge($options, collabco_groups_feature_prepopulate_query($gid));
@@ -257,7 +257,7 @@ function collabco_groups_feature_add_content_link($bundles, $gid = NULL, $option
  *
  * @return array
  */
-function collabco_groups_feature_add_term_link($bundles, $gid = NULL, $options = array()) {
+function collabco_groups_feature_build_term_links($bundles, $gid = NULL, $options = array()) {
   $items = array();
   $options = array_merge($options, collabco_groups_feature_prepopulate_query($gid));
   foreach ($bundles as $bundle) {
@@ -500,14 +500,14 @@ function collabco_groups_feature_get_group_member_ids($entity_type, $gids, $grou
 /**
  * Add a permissions aware create-content link to a view area.
  */
-function collabco_groups_feature_view_content_link($view, $display_id, $bundles, $areas) {
+function collabco_groups_feature_views_content_link($view, $display_id, $bundles, $areas) {
   global $user;
   $group = og_context();
   if (empty($group) or !og_is_member($group['group_type'], $group['gid'], 'user', $user)) {
     return;
   }
   foreach ($bundles as $bundle) {
-    $links = collabco_groups_feature_add_content_link(array($bundle), $group['gid']);
+    $links = collabco_groups_feature_build_node_links(array($bundle), $group['gid']);
     if ($links) {
       $options = array(
           'id' => 'area',
@@ -541,7 +541,7 @@ function collabco_groups_feature_views_pre_view($view, $display_id, $args) {
   if (!empty($views_integration[$view->name][$display_id]['add_content_link'])) {
     $bundles = $views_integration[$view->name][$display_id]['add_content_link']['bundles'];
     $areas = $views_integration[$view->name][$display_id]['add_content_link']['areas'];
-    collabco_groups_feature_view_content_link($view, $display_id, $bundles, $areas);
+    collabco_groups_feature_views_content_link($view, $display_id, $bundles, $areas);
   }
 }
 
