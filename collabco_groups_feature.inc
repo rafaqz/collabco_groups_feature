@@ -176,7 +176,7 @@ function collabco_groups_feature_views_content_link($view, $display_id, $bundles
 
   $links = array(
     '#theme' => 'item_list',
-    '#attributes' => array('class' => array('add-content')),
+    '#attributes' => array('class' => array('add-content-links')),
     '#items' => collabco_groups_feature_build_node_links($bundles, $group['gid'])
   );
   // Views wont render the array for us so we render now.
