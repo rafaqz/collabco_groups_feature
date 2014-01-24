@@ -121,6 +121,9 @@ function collabco_groups_feature_block_info() {
     'user_groups_list' => array(
       'info' => t('User Groups List'),
     ),
+    'group_content_tab' => array(
+      'info' => t('Group Tab'),
+    ),
   );
   return $blocks;
 }
@@ -129,7 +132,6 @@ function collabco_groups_feature_block_info() {
  * Implements hook_block_view().
  */
 function collabco_groups_feature_block_view($delta='') {
-  global $base_url;
   switch($delta) {
     case 'group_toolbar' :
       $block = collabco_groups_feature_build_group_toolbar_block();
@@ -140,40 +142,10 @@ function collabco_groups_feature_block_view($delta='') {
     case 'user_groups_list' :
       $block = collabco_groups_feature_build_user_groups_list_block();
       return $block;
+    case 'group_content_tab' :
+      $block = collabco_groups_feature_build_group_content_tab_block();
+      return $block;
   }
-} 
-
-/**
- * Build a group list.
- *
- * @return array
- *   A Drupal build array.
- */
-function collabco_groups_feature_build_user_groups_list() {
-  global $base_url;
-  global $user;
-
-  // Build groups list renderable array.
-  $group_links = array();
-  $groups = og_get_groups_by_user($user);
-  if (!empty($groups)) {
-    $list = array(
-      '#theme' => 'item_list',
-    );
-    foreach ($groups['node'] as $key => $gid) {
-      $node = node_load($gid);
-      $url ='node/' . $node->nid; 
-      $list['#items'][$node->nid] = array(
-        '#theme' => 'link',
-        '#below' => array(),
-        '#localized_options' => array(),
-        '#attributes' => array(),
-        '#title' => $node->title, 
-        '#href' => $url,
-      );
-    }
-  }
-  return $list;
 } 
 
 /**
@@ -263,6 +235,55 @@ function collabco_groups_feature_build_group_toolbar_block() {
     );
     return $block;
   }
+}
+
+/**
+ * Build a group toolbar block.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
+function collabco_groups_feature_build_group_content_tab_block() {
+  global $user;
+
+  // Check if the current user is in the current group from context.
+  $group = og_context();
+  if (empty($group)) {
+    return;
+  }
+  $block['og_context'] = $group;
+
+  // Create list of links for each node type that the user can add to the group. 
+  // Build render array structure.
+
+  //$integrations = module_invoke_all('collabco_integration');
+  //$views_integration = array();
+  //foreach ($integrations as $integration) { 
+    //if (!empty($integration['views'])) {
+      //$views_integration = array_merge($views_integration, $integration['views']);
+    //}
+  //}
+  //$page_links = array();
+  //foreach($integration as $view) {
+    //$page_links = $view['group_page']['subpath'];
+  global $base_url;
+  $group_url = $base_url . '/node/' . $group['gid'] . '/';
+  $page_links = array();
+  $subpaths = array('Home' => '', 'Conversations'=>'conversation','Wikis' => 'wiki','Library' => 'library');
+  foreach($subpaths as $title => $subpath) {
+    $page_links[$subpath] = l($title, $group_url . $subpath);
+  }
+      
+  $block['content'] = array(
+    '#type' => 'container',
+    '#attributes' => array('class' => array('group-content-tab')),
+    'page-list' => array(
+      '#theme' => 'item_list',
+      '#weight' => 2,
+      '#items' => $page_links,
+    ),
+  );
+  return $block;
 }
 
 /**

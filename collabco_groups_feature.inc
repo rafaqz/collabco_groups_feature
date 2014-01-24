@@ -28,6 +28,39 @@ function collabco_groups_feature_build_node_links($bundles, $gid = NULL, $option
 }  
 
 /**
+ * Build a group list.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
+function collabco_groups_feature_build_user_groups_list() {
+  global $user;
+
+  // Build groups list renderable array.
+  $group_links = array();
+  $groups = og_get_groups_by_user($user);
+  if (!empty($groups)) {
+    $list = array(
+      '#theme' => 'item_list',
+    );
+    foreach ($groups['node'] as $key => $gid) {
+      $node = node_load($gid);
+      $url ='node/' . $node->nid; 
+      $list['#items'][$node->nid] = array(
+        '#theme' => 'link',
+        '#below' => array(),
+        '#localized_options' => array(),
+        '#attributes' => array(),
+        '#title' => $node->title, 
+        '#label' => $node->title, 
+        '#href' => $url,
+      );
+    }
+  }
+  return $list;
+} 
+
+/**
  * Add a list item for each taxonomy vocabulary, as a link to its term/add page 
  * and vocabulary view.
  *
