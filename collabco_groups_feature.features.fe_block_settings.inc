@@ -22,10 +22,10 @@ function collabco_groups_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'custom_theme' => array(
-        'region' => 'main_upper',
+      'custom_zurb' => array(
+        'region' => 'header',
         'status' => 1,
-        'theme' => 'custom_theme',
+        'theme' => 'custom_zurb',
         'weight' => 0,
       ),
       'seven' => array(
@@ -49,10 +49,10 @@ function collabco_groups_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'custom_theme' => array(
+      'custom_zurb' => array(
         'region' => 'sidebar_second',
         'status' => 1,
-        'theme' => 'custom_theme',
+        'theme' => 'custom_zurb',
         'weight' => 0,
       ),
       'seven' => array(
@@ -68,7 +68,7 @@ function collabco_groups_feature_default_fe_block_settings() {
 
   $export['collabco_groups_feature-user_groups_list'] = array(
     'cache' => 1,
-    'css_class' => 'span4',
+    'css_class' => '',
     'custom' => 0,
     'delta' => 'user_groups_list',
     'module' => 'collabco_groups_feature',
@@ -76,10 +76,10 @@ function collabco_groups_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'custom_theme' => array(
-        'region' => 'main_upper',
-        'status' => 1,
-        'theme' => 'custom_theme',
+      'custom_zurb' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'custom_zurb',
         'weight' => 0,
       ),
       'seven' => array(
@@ -106,10 +106,10 @@ user/*/edit',
       'authenticated user' => 2,
     ),
     'themes' => array(
-      'custom_theme' => array(
+      'custom_zurb' => array(
         'region' => '',
         'status' => 0,
-        'theme' => 'custom_theme',
+        'theme' => 'custom_zurb',
         'weight' => 0,
       ),
       'seven' => array(
