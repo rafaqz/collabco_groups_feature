@@ -32,6 +32,7 @@ features[fe_block_settings][] = collabco_groups_feature-group_header
 features[fe_block_settings][] = collabco_groups_feature-group_toolbar
 features[fe_block_settings][] = collabco_groups_feature-user_groups_list
 features[fe_block_settings][] = views-group_users-block
+features[fe_block_settings][] = views-subgroups-group_block
 features[features_api][] = api:2
 features[field_base][] = group_access
 features[field_base][] = group_group

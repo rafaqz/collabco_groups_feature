@@ -614,7 +614,6 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['fields']['rendered_entity']['label'] = '';
   $handler->display->display_options['fields']['rendered_entity']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['rendered_entity']['link_to_entity'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['display'] = 'view';
   $handler->display->display_options['fields']['rendered_entity']['view_mode'] = 'teaser';
   $handler->display->display_options['fields']['rendered_entity']['bypass_access'] = 0;
   /* Sort criterion: Content: Title */
@@ -648,14 +647,8 @@ function collabco_groups_feature_views_default_views() {
     1 => '1',
   );
 
-  /* Display: Group Page */
-  $handler = $view->new_display('page', 'Group Page', 'group_page');
-  $handler->display->display_options['path'] = 'node/%/subgroups';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Subgroups';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
+  /* Display: Group Block */
+  $handler = $view->new_display('block', 'Group Block', 'group_block');
   $export['subgroups'] = $view;
 
   return $export;

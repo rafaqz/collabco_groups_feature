@@ -123,5 +123,32 @@ user/*/edit',
     'visibility' => 0,
   );
 
+  $export['views-subgroups-group_block'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'subgroups-group_block',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'custom_zurb' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'custom_zurb',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
   return $export;
 }
