@@ -163,7 +163,14 @@ function collabco_groups_feature_build_user_groups_list() {
     foreach ($groups['node'] as $key => $gid) {
       $node = node_load($gid);
       $url ='node/' . $node->nid; 
-      $list['#items'][$node->nid] = l($node->title, $url);
+      $list['#items'][$node->nid] = array(
+        '#theme' => 'link',
+        '#below' => array(),
+        '#localized_options' => array(),
+        '#attributes' => array(),
+        '#title' => $node->title, 
+        '#href' => $url,
+      );
     }
   }
   return $list;
