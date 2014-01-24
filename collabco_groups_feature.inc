@@ -56,8 +56,8 @@ function collabco_groups_feature_build_user_groups_list() {
         '#href' => $url,
       );
     }
+    return $list;
   }
-  return $list;
 } 
 
 /**
