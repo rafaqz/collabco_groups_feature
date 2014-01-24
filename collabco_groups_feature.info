@@ -28,6 +28,7 @@ features[context][] = group
 features[ctools][] = context:context:3
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
+features[fe_block_settings][] = collabco_groups_feature-group_content_tab
 features[fe_block_settings][] = collabco_groups_feature-group_header
 features[fe_block_settings][] = collabco_groups_feature-group_toolbar
 features[fe_block_settings][] = collabco_groups_feature-user_groups_list
