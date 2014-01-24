@@ -269,7 +269,13 @@ function collabco_groups_feature_build_group_content_tab_block() {
   global $base_url;
   $group_url = $base_url . '/node/' . $group['gid'] . '/';
   $page_links = array();
-  $subpaths = array('Home' => '', 'Conversations'=>'conversation','Wikis' => 'wiki','Library' => 'library');
+  $subpaths = array(
+    'Home' => '', 
+    'Conversations'=>'conversation',
+    'Ideas' => 'idea',
+    'Wikis' => 'wiki',
+    'Library' => 'library'
+  );
   foreach($subpaths as $title => $subpath) {
     $page_links[$subpath] = l($title, $group_url . $subpath);
   }
