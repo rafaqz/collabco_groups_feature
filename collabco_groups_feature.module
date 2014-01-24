@@ -119,7 +119,7 @@ function collabco_groups_feature_block_info() {
       'info' => t('Group Header'),
     ),
     'user_groups_list' => array(
-      'info' => t('User Groups List)'),
+      'info' => t('User Groups List'),
     ),
   );
   return $blocks;
@@ -132,15 +132,41 @@ function collabco_groups_feature_block_view($delta='') {
   global $base_url;
   switch($delta) {
     case 'group_toolbar' :
-      $block = collabco_groups_feature_build_group_toolbar();
+      $block = collabco_groups_feature_build_group_toolbar_block();
       return $block;
     case 'group_header' :
-      $block = collabco_groups_feature_build_group_header();
+      $block = collabco_groups_feature_build_group_header_block();
       return $block;
     case 'user_groups_list' :
-      $block = collabco_groups_feature_build_user_groups_list();
+      $block = collabco_groups_feature_build_user_groups_list_block();
       return $block;
   }
+} 
+
+/**
+ * Build a group list.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
+function collabco_groups_feature_build_user_groups_list() {
+  global $base_url;
+  global $user;
+
+  // Build groups list renderable array.
+  $group_links = array();
+  $groups = og_get_groups_by_user($user);
+  if (!empty($groups)) {
+    $list = array(
+      '#theme' => 'item_list',
+    );
+    foreach ($groups['node'] as $key => $gid) {
+      $node = node_load($gid);
+      $url ='node/' . $node->nid; 
+      $list['#items'][$node->nid] = l($node->title, $url);
+    }
+  }
+  return $list;
 } 
 
 /**
@@ -149,14 +175,14 @@ function collabco_groups_feature_block_view($delta='') {
  * @return array
  *   A Drupal build array.
  */
-function collabco_groups_feature_build_user_groups_list() {
-  global $base_url;
-  global $user;
+function collabco_groups_feature_build_user_groups_list_block() {
   $block = array();
+  $links = collabco_groups_feature_build_user_groups_list(); 
 
+  if (empty($links)) { 
+    return;
+  }
   // Build groups section.
-  $group_links = array();
-  $groups = og_get_groups_by_user($user);
   if (!empty($groups)) {
     $block['content'] = array(
       '#type' => 'container',
@@ -164,20 +190,12 @@ function collabco_groups_feature_build_user_groups_list() {
       'title' => array(
         '#type' => 'markup',
         '#markup' => 'Your Groups',
-        '#weight' => 0,
+        '#weight' => -2,
         '#prefix' => '<h5>',
         '#suffix' => '</h5>'
       ),
-      'group_list' => array(
-        '#theme' => 'item_list',
-        '#weight' => 2,
-      ),
+      'group_list' => $links,
     );
-    foreach ($groups['node'] as $key => $gid) {
-      $node = node_load($gid);
-      $url ='node/' . $node->nid; 
-      $block['content']['group_list']['#items'][$node->nid] = l($node->title, $url);
-    }
   }
   return $block;
 } 
@@ -188,7 +206,7 @@ function collabco_groups_feature_build_user_groups_list() {
  * @return array
  *   A Drupal build array.
  */
-function collabco_groups_feature_build_group_toolbar() {
+function collabco_groups_feature_build_group_toolbar_block() {
   global $user;
 
   // Check if the current user is in the current group from context.
@@ -209,20 +227,30 @@ function collabco_groups_feature_build_group_toolbar() {
     $block['content'] = array(
       '#type' => 'container',
       '#attributes' => array('class' => array('group-toolbar')),
-      'content' => array(
-        '#type' => 'markup',
-        '#markup' => t('Add content to this group:'),
-        '#weight' => 0,
+      //'content' => array(
+        //'#type' => 'markup',
+        //'#markup' => t('Add content to this group:'),
+        //'#weight' => 0,
+      //),
+      'add-content-button' => array(
+        '#theme' => 'link',
+        '#text' => 'Add Content',
+        '#path' => '',
+        '#options' => array(
+          'attributes' => array('title' => 'Add Content', 'class' => array('add-content'), 'data-dropdown' => array('add-content-drop')),
+          'html' => FALSE,
+        ),
+        '#weight' => 1,
       ),
       'add-content-list' => array(
         '#theme' => 'item_list',
-        '#attributes' => array('class' => array('add-content')),
-        '#weight' => 1,
+        '#attributes' => array('id' => array('add-content-drop'), 'class' => array('f-dropdown')),
+        '#weight' => 2,
         '#items' => $node_links,
       ),
       'add-term-list' => array(
         '#theme' => 'item_list',
-        '#weight' => 2,
+        '#weight' => 3,
         '#items' => $term_links,
       ),
     );
@@ -236,7 +264,7 @@ function collabco_groups_feature_build_group_toolbar() {
  * @return array
  *   A Drupal build array.
  */
-function collabco_groups_feature_build_group_header() {
+function collabco_groups_feature_build_group_header_block() {
   $og_context = og_context();
   if (empty($og_context)) {
     return;
@@ -260,14 +288,14 @@ function collabco_groups_feature_build_group_header() {
     'label'=>'hidden',
     'settings'=>array('trim_length' => 150),
   ));
-  $description['#weight'] = '2';
+  $description['#weight'] = '4';
 
   // Build the group subscribe field.
   $group_field = field_view_field('node', $node, OG_GROUP_FIELD, array(
     'type' => 'og_group_subscribe',
     'label'=>'hidden',
   ));
-  $group_field['#weight'] = '4';
+  $group_field['#weight'] = '1';
 
   // Build render array structure.
   $block = array();
@@ -278,18 +306,18 @@ function collabco_groups_feature_build_group_header() {
       '#type' => 'markup',
       '#markup' => $title,
       '#weight' => 0,
-      '#prefix' => '<div>',
-      '#suffix' => '</div>'
+      '#prefix' => '<h1>',
+      '#suffix' => '</h1>'
     ),
-    'description' => $description,
-    'group' => $group_field,
     'status' => array(
       '#type' => 'markup',
       '#markup' => $privacy,
-      '#weight' => 8,
-      '#prefix' => '<div>',
-      '#suffix' => '</div>'
+      '#weight' => 2,
+      '#prefix' => '<div class="privacy-status">',
+      '#suffix' => '</div>',
     ),
+    'description' => $description,
+    'group' => $group_field,
   );
   return $block;
 }
