@@ -61,33 +61,6 @@ function collabco_groups_feature_build_user_groups_list() {
 } 
 
 /**
- * Add a list item for each taxonomy vocabulary, as a link to its term/add page 
- * and vocabulary view.
- *
- * @return array
- */
-function collabco_groups_feature_build_term_links($bundles, $gid = NULL, $options = array()) {
-  $items = array();
-  $options = array_merge($options, collabco_groups_feature_prepopulate_query($gid));
-  foreach ($bundles as $bundle) {
-    $vocabulary = taxonomy_vocabulary_machine_name_load($bundle);
-    $perm_string = "edit terms in " .  $vocabulary->vid;
-    // Construct permission name string for the taxonomy bundle.
-    // Add menu link if the current user can create taxonomy terms in the bundle.
-    if (user_access($perm_string)) {
-      $text = t('Add ') . $vocabulary->name;
-      $url = "node/$gid/taxonomy/$bundle/add/";
-      $items[$bundle] = l($text, $url, $options); 
-      // Link to view to edit all terms in vocab and group.
-      $text = t('View ') . $vocabulary->name . ' ' . t('vocabulary');
-      $url = "node/$gid/taxonomy/$bundle/";
-      $items["view-$bundle"] = l($text, $url); 
-    }
-  } 
-  return $items;
-}  
-
-/**
  * Get prepoulate query array to add group context for links.
  *
  * @return array $options
@@ -172,6 +145,26 @@ function collabco_groups_feature_get_children_recursive($gids) {
   return array_merge($child_gids, $grandchild_gids);
 }
 
+
+function collabco_groups_feature_add_child_groups_to_entity($entity,$type) { 
+  // Recursive function needs an array of gids by entity type.
+  $wrapper = entity_metadata_wrapper($type, $entity);
+  $gids = array('node' => $wrapper->{OG_AUDIENCE_FIELD}->raw()); 
+  $child_gids = collabco_groups_feature_get_children_recursive($gids);
+  if (empty($child_gids['node'])) { 
+    return;
+  }
+  $values = array(
+    'entity_type' => $type, 
+    'entity' => $entity, 
+    'field_name' => OG_AUDIENCE_FIELD, 
+    'state' => OG_STATE_ACTIVE,
+  );
+  foreach ($child_gids['node'] as $gid) {
+    og_group('node', $gid, $values);
+  }
+}
+
 /**
  * Add all taxonomy terms from the parent group to the newly created group.
  */
@@ -231,4 +224,162 @@ function collabco_groups_feature_views_content_link($view, $display_id, $bundles
   }
 }
 
+/**
+ * Build a group list block.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
+function collabco_groups_feature_build_user_groups_list_block() {
+  $block = array();
+  $links = collabco_groups_feature_build_user_groups_list(); 
+
+  if (empty($links)) { 
+    return;
+  }
+  // Build groups section.
+  if (!empty($groups)) {
+    $block['content'] = array(
+      '#type' => 'container',
+      '#attributes' => array('class' => array('group-list')),
+      'title' => array(
+        '#type' => 'markup',
+        '#markup' => 'Your Groups',
+        '#weight' => -2,
+        '#prefix' => '<h5>',
+        '#suffix' => '</h5>'
+      ),
+      'group_list' => $links,
+    );
+  }
+  return $block;
+} 
+
+/**
+ * Build a group toolbar block.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
+function collabco_groups_feature_build_group_toolbar_block() {
+  global $user;
+
+  // Check if the current user is in the current group from context.
+  $group = og_context();
+  $entity_type = 'user';
+  if (empty($group) or !og_is_member($group['group_type'], $group['gid'], $entity_type, $user)) {
+    return;
+  }
+  $block['og_context'] = $group;
+
+  // Create list of links for each node type that the user can add to the group. 
+  $group_field_info = field_info_field(OG_AUDIENCE_FIELD);
+  if (!empty($group_field_info)) {
+    // Build render array structure.
+    $node_links = collabco_groups_feature_build_node_links($group_field_info['bundles']['node'], $group['gid']);
+    $block = array();
+    $block['content'] = array(
+      '#type' => 'container',
+      '#attributes' => array('class' => array('group-toolbar')),
+      //'content' => array(
+        //'#type' => 'markup',
+        //'#markup' => t('Add content to this group:'),
+        //'#weight' => 0,
+      //),
+      'add-content-button' => array(
+        '#theme' => 'link',
+        '#text' => 'Add Content',
+        '#path' => '',
+        '#options' => array(
+          'attributes' => array('title' => 'Add Content', 'class' => array('add-content'), 'data-dropdown' => array('add-content-drop')),
+          'html' => FALSE,
+        ),
+        '#weight' => 1,
+      ),
+      'add-content-list' => array(
+        '#theme' => 'item_list',
+        '#attributes' => array('id' => array('add-content-drop'), 'class' => array('f-dropdown')),
+        '#weight' => 2,
+        '#items' => $node_links,
+      ),
+    );
+    return $block;
+  }
+}
+
+
+/**
+ * Build a group header block.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
+function collabco_groups_feature_build_group_header_block() {
+  $og_context = og_context();
+  if (empty($og_context)) {
+    return;
+  }
+  $node = node_load($og_context['gid']);
+
+  // Get group title and all parent group titles.
+  $title = collabco_groups_feature_get_title_recursive($node);
+
+  // Determine group privacy status.
+  if (!empty($node->{OG_ACCESS_FIELD}['und'][0]['value']) && $node->{OG_ACCESS_FIELD}['und'][0]['value'] === '1') {
+    $privacy = t('Private');
+  }
+  else {
+    $privacy = t('Public');
+  }
+
+  
+  // Build the description (body) field.
+  $description = field_view_field('node', $node, 'body', array(
+    'type' => 'text_summary_or_trimmed',
+    'label'=>'hidden',
+    'settings'=>array('trim_length' => 150),
+  ));
+  $description['#weight'] = '4';
+
+  // Build the group subscribe field.
+  $group_field = field_view_field('node', $node, OG_GROUP_FIELD, array(
+    'type' => 'og_group_subscribe',
+    'label'=>'hidden',
+  ));
+  $group_field['#weight'] = '1';
+
+  // Build the tab menu links.
+  $group_path = 'node/' . $og_context['gid'] . '/';
+  $subpaths = array('Home' => ''); 
+  $tabs = collabco_settings_feature_tabs_integration($group_path, $subpaths);
+
+  // Build the block render array.
+  $block = array();
+  $block['content'] = array(
+    '#type' => 'container',
+    '#attributes' => array('class' => array('header-banner')),
+    'header-details' => array(
+      '#type' => 'container',
+      '#attributes' => array('class' => array('header-details')),
+      'title' => array(
+        '#type' => 'markup',
+        '#markup' => $title,
+        '#weight' => 0,
+        '#prefix' => '<h1>',
+        '#suffix' => '</h1>'
+      ),
+      'status' => array(
+        '#type' => 'markup',
+        '#markup' => $privacy,
+        '#weight' => 2,
+        '#prefix' => '<div class="privacy-status">',
+        '#suffix' => '</div>',
+      ),
+      'description' => $description,
+      'group' => $group_field,
+    ),
+    'header-content-tab' => $tabs,
+  );
+  return $block;
+}
 
