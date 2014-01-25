@@ -376,7 +376,7 @@ function collabco_groups_feature_build_group_header_block() {
             '#type' => 'markup',
             '#markup' => $privacy,
             '#weight' => 2,
-            '#prefix' => '<div class="privacy-status">',
+            '#prefix' => '<div class="privacy-status ' . $privacy . '">',
             '#suffix' => '</div>',
           ),
           'description' => $description,
