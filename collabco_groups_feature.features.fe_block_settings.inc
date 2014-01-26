@@ -53,7 +53,7 @@ function collabco_groups_feature_default_fe_block_settings() {
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'custom_zurb',
-        'weight' => -20,
+        'weight' => -31,
       ),
       'seven' => array(
         'region' => '',
@@ -95,7 +95,7 @@ function collabco_groups_feature_default_fe_block_settings() {
 
   $export['views-group_users-block'] = array(
     'cache' => -1,
-    'css_class' => 'group-members padding-reset',
+    'css_class' => '',
     'custom' => 0,
     'delta' => 'group_users-block',
     'module' => 'views',
@@ -110,7 +110,7 @@ user/*/edit',
         'region' => '',
         'status' => 0,
         'theme' => 'custom_zurb',
-        'weight' => 0,
+        'weight' => -30,
       ),
       'seven' => array(
         'region' => '',
@@ -134,10 +134,10 @@ user/*/edit',
     'roles' => array(),
     'themes' => array(
       'custom_zurb' => array(
-        'region' => 'sidebar_second',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'custom_zurb',
-        'weight' => 0,
+        'weight' => 5,
       ),
       'seven' => array(
         'region' => '',

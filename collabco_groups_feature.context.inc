@@ -14,9 +14,14 @@ function collabco_groups_feature_context_default_contexts() {
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'group';
-  $context->description = 'Context for content in a closed group or the group page itself.';
-  $context->tag = '';
+  $context->description = 'group blocks that need more than the block page';
+  $context->tag = 'groups feature';
   $context->conditions = array(
+    'context' => array(
+      'values' => array(
+        '~integration' => '~integration',
+      ),
+    ),
     'context_og_condition_group_type' => array(
       'values' => array(
         '_any_' => '_any_',
@@ -33,16 +38,23 @@ function collabco_groups_feature_context_default_contexts() {
           'module' => 'views',
           'delta' => 'group_users-block',
           'region' => 'sidebar_second',
-          'weight' => '-10',
+          'weight' => '-5',
+        ),
+        'views-subgroups-group_block' => array(
+          'module' => 'views',
+          'delta' => 'subgroups-group_block',
+          'region' => 'sidebar_second',
+          'weight' => '5',
         ),
       ),
     ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Context for content in a closed group or the group page itself.');
+  t('group blocks that need more than the block page');
+  t('groups feature');
   $export['group'] = $context;
 
   return $export;
