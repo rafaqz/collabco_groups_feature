@@ -176,9 +176,6 @@ function collabco_groups_feature_entity_insert($entity,$type) {
 function collabco_groups_feature_views_pre_view($view, $display_id, $args) {
   // Find all Collabco integrations.
   $integrations = module_invoke_all('collabco_integration');
-  if (($view->name === 'recent_activity') && ($display_id === 'group_block')) {
-  
-  }
   foreach ($integrations as $integration) { 
     if (!empty($integration['views'][$view->name][$display_id]['add_content_link'])) {
       $bundles = $integration['entity']['node'];
