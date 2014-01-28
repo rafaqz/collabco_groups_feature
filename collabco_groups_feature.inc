@@ -349,7 +349,7 @@ function collabco_groups_feature_build_group_header_block() {
   $group_field['#weight'] = '1';
 
   // Build the tab menu links.
-  $path = 'node/' . $og_context['gid'] . '/';
+  $path = 'node/' . $og_context['gid'];
   $subpaths = array('Home' => ''); 
   $tabs = collabco_settings_feature_tabs_integration($path, $subpaths);
 
