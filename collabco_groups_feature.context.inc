@@ -20,6 +20,7 @@ function collabco_groups_feature_context_default_contexts() {
     'context' => array(
       'values' => array(
         '~integration' => '~integration',
+        'group_group' => 'group_group',
       ),
     ),
     'context_og_condition_group_type' => array(

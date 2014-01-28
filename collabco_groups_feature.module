@@ -90,7 +90,10 @@ function collabco_groups_feature_init() {
   // Add OG Context for all subpaths of nodes that are groups.
   // Some ugly code to get the group id from path and set og_context.
   // @todo find a better way to do this, why is there no nicer drupal function?? 
-  // why dosn't OG do this by default?
+  // Why dosn't OG do this by default?
+  // 
+  // Also add a context module context to say we are actually on the group page, 
+  // not just another node with the group context.
  
   // Check if the current path starts with /node/*.
   if ((arg(0) === 'node') && is_numeric(arg(1))) {
@@ -99,8 +102,10 @@ function collabco_groups_feature_init() {
       // Check if this is a group node.
       if (!empty($group->{OG_GROUP_FIELD}['und'][0]['value'])) {
         if ($group->{OG_GROUP_FIELD}['und'][0]['value'] === '1') {
-        // Set the og context to the group node from the path.
+          // Set the og context to the group node from the path.
           og_context('node', $group);
+          // Set context module context.
+          context_set('context',OG_GROUP_FIELD);
         }
       }
     }
