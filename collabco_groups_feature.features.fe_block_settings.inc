@@ -53,7 +53,7 @@ function collabco_groups_feature_default_fe_block_settings() {
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'custom_zurb',
-        'weight' => -31,
+        'weight' => -32,
       ),
       'seven' => array(
         'region' => '',
