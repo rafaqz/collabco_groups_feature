@@ -13,7 +13,7 @@
 function collabco_groups_feature_build_node_links($bundles, $gid = NULL, $options = array()) {
   // Add menu link if the current user can create nodes in the bundle.
   $items = array();
-  $options = array_merge($options, collabco_groups_feature_prepopulate_query($gid));
+  $options = (!empty($gid) ? array_merge($options, collabco_groups_feature_prepopulate_query($gid)) : array());
   foreach ($bundles as $bundle) {
     $perm_string = "create $bundle content";
     if (user_access($perm_string)) {
@@ -40,21 +40,23 @@ function collabco_groups_feature_build_user_groups_list() {
   $group_links = array();
   $groups = og_get_groups_by_user($user);
   if (!empty($groups)) {
-    $list = array(
-      '#theme' => 'item_list',
-    );
+    $list = array();
     foreach ($groups['node'] as $key => $gid) {
-      $node = node_load($gid);
-      $url ='node/' . $node->nid; 
-      $list['#items'][$node->nid] = array(
-        '#theme' => 'link',
-        '#below' => array(),
-        '#localized_options' => array(),
-        '#attributes' => array(),
-        '#title' => $node->title, 
-        '#label' => $node->title, 
-        '#href' => $url,
-      );
+      if ($node = node_load($gid)) {
+        $url ='node/' . $node->nid; 
+        $list['#items'][$node->nid] = array(
+          '#theme' => 'link',
+          '#below' => array(),
+          '#localized_options' => array(),
+          '#attributes' => array(),
+          '#title' => $node->title, 
+          '#label' => $node->title, 
+          '#href' => $url,
+        );
+      }
+    }
+    if (!empty($list)) {
+      $list['#theme'] = 'item_list';
     }
     return $list;
   }
@@ -66,7 +68,7 @@ function collabco_groups_feature_build_user_groups_list() {
  * @return array $options
  */
 function collabco_groups_feature_prepopulate_query($gid) {
-  if ($gid) {
+  if (!empty($gid)) {
     $query_array = array(OG_AUDIENCE_FIELD => $gid);
     $options = array('query' => $query_array);
     return $options;
@@ -196,14 +198,11 @@ function collabco_groups_feature_add_parent_terms_to_group($entity,$type) {
 function collabco_groups_feature_views_content_link($view, $display_id, $bundles, $areas) {
   global $user;
   $group = og_context();
-  if (empty($group) or !og_is_member($group['group_type'], $group['gid'], 'user', $user)) {
-    return;
-  }
-
+  $gid = !empty($group['gid']) ? $gid = $group['gid'] : NULL; 
   $links = array(
     '#theme' => 'item_list',
     '#attributes' => array('class' => array('add-content-links')),
-    '#items' => collabco_groups_feature_build_node_links($bundles, $group['gid'])
+    '#items' => collabco_groups_feature_build_node_links($bundles, $gid)
   );
   // Views wont render the array for us so we render now.
   $rendered_links = drupal_render($links);
@@ -219,7 +218,6 @@ function collabco_groups_feature_views_content_link($view, $display_id, $bundles
     );
     foreach ($areas as $area) {
       $view->add_item($display_id, $area, 'views', 'area', $options);
-      //$view->display_handler->set_option($area, array('text' => $options));
     }
   }
 }
