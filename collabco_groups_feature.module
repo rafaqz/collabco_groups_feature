@@ -151,13 +151,15 @@ function collabco_groups_feature_block_view($delta='') {
  * Implements hook_preprocess_page().
  */
 function collabco_groups_feature_preprocess_page(&$vars) {
-  $vars['show_title'] = TRUE; // so that showtitle is true by default
-  //if (isset($vars['node']->{OG_GROUP_FIELD})) {
-    //if ($vars['node']->{OG_GROUP_FIELD}['und'][0]['value'] === '1') { 
-      //$vars['show_title'] = FALSE;
-    //}
-  //}
+  // Showtitle is true by default.
+  $vars['show_title'] = TRUE; 
+  if (isset($vars['node']->{OG_GROUP_FIELD})) {
+    if ($vars['node']->{OG_GROUP_FIELD}['und'][0]['value'] === '1') { 
+      $vars['show_title'] = FALSE;
+    }
+  }
 }
+
 
 /**
  * Implements hook_entity_insert().
@@ -215,4 +217,3 @@ function collabco_groups_feature_collabco_integration() {
     ),
   );
 }
-
