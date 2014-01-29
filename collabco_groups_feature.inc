@@ -13,18 +13,25 @@
 function collabco_groups_feature_build_node_links($bundles, $gid = NULL, $options = array()) {
   // Add menu link if the current user can create nodes in the bundle.
   $items = array();
+  $group_type = 'node';
   $options = (!empty($gid) ? array_merge($options, collabco_groups_feature_prepopulate_query($gid)) : array());
-  foreach ($bundles as $bundle) {
-    $perm_string = "create $bundle content";
-    if (user_access($perm_string)) {
-      // Build query array for entity reference prepoluate
-      // Construct permission name string for the node bundle.
-      $text = t('Create ') . node_type_get_name($bundle);
-      $url = "node/add/" . str_replace('_', '-', $bundle);
-      $items[$bundle] = l($text, $url, $options); 
+  if (!empty($gid)) {
+    if (!og_is_member($group_type, $gid)) {
+      return;
     }
+    $group = entity_load($group_type, array($gid));
+    foreach ($bundles as $bundle) {
+      $string = $group_type . ':' . $group[$gid]->type . ':' . "create $bundle content";
+      if (og_user_access($group_type, $gid, $string)) {
+        // Build query array for entity reference prepoluate
+        // Construct permission name string for the node bundle.
+        $text = t('Create ') . node_type_get_name($bundle);
+        $url = "node/add/" . str_replace('_', '-', $bundle);
+        $items[$bundle] = l($text, $url, $options); 
+      }
+    }
+    return $items;
   }
-  return $items;
 }  
 
 /**
