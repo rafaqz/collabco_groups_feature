@@ -42,6 +42,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:closed_group:create closed_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -49,6 +50,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:closed_group:create group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -84,6 +86,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:closed_group:delete own closed_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -91,6 +94,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:closed_group:delete own group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -221,6 +225,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:closed_group:update own closed_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -228,6 +233,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:closed_group:update own group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -259,6 +265,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:closed_group:view group_access field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -266,6 +273,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:closed_group:view group_group field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -317,6 +325,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:create closed_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -324,6 +333,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:create group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -345,6 +355,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:delete any group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -359,6 +370,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:delete own closed_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -366,6 +378,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:delete own group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -428,6 +441,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update any group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -478,6 +492,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update og_group_ref field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -499,6 +514,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update own closed_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -506,6 +522,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update own group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -514,6 +531,7 @@ function collabco_groups_feature_og_features_default_permissions() {
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
+      'non-member' => 'non-member',
     ),
   );
 
@@ -557,6 +575,8 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:view og_group_ref field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
+      'non-member' => 'non-member',
     ),
   );
 
