@@ -14,7 +14,7 @@ function collabco_groups_feature_default_fe_block_settings() {
 
   $export['collabco_groups_feature-group_header'] = array(
     'cache' => 1,
-    'css_class' => 'span8',
+    'css_class' => '',
     'custom' => 0,
     'delta' => 'group_header',
     'module' => 'collabco_groups_feature',
