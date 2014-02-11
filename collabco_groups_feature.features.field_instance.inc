@@ -423,14 +423,14 @@ function collabco_groups_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 4,
       ),
       'teaser' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
@@ -438,7 +438,7 @@ function collabco_groups_feature_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'tags',
-    'label' => 'tags',
+    'label' => 'Tags',
     'required' => FALSE,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -676,14 +676,14 @@ function collabco_groups_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 3,
       ),
       'teaser' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
@@ -691,7 +691,7 @@ function collabco_groups_feature_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'tags',
-    'label' => 'tags',
+    'label' => 'Tags',
     'required' => FALSE,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -805,7 +805,7 @@ function collabco_groups_feature_field_default_field_instances() {
   t('Parent Group');
   t('Request message');
   t('This is the text a user may send to the group administrators.');
-  t('tags');
+  t('Tags');
 
   return $field_instances;
 }
