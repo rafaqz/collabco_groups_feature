@@ -24,9 +24,9 @@ function collabco_groups_feature_build_node_links($bundles, $gid = NULL, $option
     }
     $group = entity_load($group_type, array($gid));
     foreach ($bundles as $bundle) {
-      $string = $group_type . ':' . $group[$gid]->type . ':' . "create $bundle content";
+      // Construct permission name string for the node bundle.
+      $string = "create $bundle content";
       if (og_user_access($group_type, $gid, $string)) {
-        // Construct permission name string for the node bundle.
         $text = t('Create ') . node_type_get_name($bundle);
         $url = "node/add/" . str_replace('_', '-', $bundle);
         $items[$bundle] = l($text, $url, $options); 
@@ -36,9 +36,9 @@ function collabco_groups_feature_build_node_links($bundles, $gid = NULL, $option
   }
   // Add links if the user has standard permissions.
   foreach ($bundles as $bundle) {
+    // Construct permission name string for the node bundle.
     $string = "create $bundle content";
     if (user_access($string)) {
-      // Construct permission name string for the node bundle.
       $text = t('Create ') . node_type_get_name($bundle);
       $url = "node/add/" . str_replace('_', '-', $bundle);
       $items[$bundle] = l($text, $url, $options); 
