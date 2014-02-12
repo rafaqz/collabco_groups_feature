@@ -162,21 +162,20 @@ function collabco_groups_feature_preprocess_page(&$vars) {
   }
 }
 
-
 /**
  * Implements hook_entity_insert().
  * 
  * Add new subgroup gid to group terms.
  */
 function collabco_groups_feature_entity_insert($entity,$type) { 
-  switch ($type) {
-  case 'node':
-    collabco_groups_feature_add_parent_terms_to_group($entity,$type);
-    break;
-  case 'taxonomy_term':
-    collabco_groups_feature_add_child_groups_to_entity($entity,$type);
-    break;
-  }
+  //switch ($type) {
+  //case 'node':
+    //collabco_groups_feature_add_parent_terms_to_group($entity,$type);
+    //break;
+  //case 'taxonomy_term':
+    //collabco_groups_feature_add_child_groups_to_entity($entity,$type);
+    //break;
+  //}
 }
 
 /**
