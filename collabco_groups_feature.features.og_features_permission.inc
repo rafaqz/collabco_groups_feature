@@ -237,6 +237,11 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
+  // Exported og permission: 'node:closed_group:update tags field'
+  $permissions['node:closed_group:update tags field'] = array(
+    'roles' => array(),
+  );
+
   // Exported og permission: 'node:closed_group:view body field'
   $permissions['node:closed_group:view body field'] = array(
     'roles' => array(
@@ -291,6 +296,11 @@ function collabco_groups_feature_og_features_default_permissions() {
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
+  );
+
+  // Exported og permission: 'node:closed_group:view tags field'
+  $permissions['node:closed_group:view tags field'] = array(
+    'roles' => array(),
   );
 
   // Exported og permission: 'node:group:add user'
@@ -526,6 +536,11 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
+  // Exported og permission: 'node:group:update tags field'
+  $permissions['node:group:update tags field'] = array(
+    'roles' => array(),
+  );
+
   // Exported og permission: 'node:group:view body field'
   $permissions['node:group:view body field'] = array(
     'roles' => array(
@@ -587,6 +602,11 @@ function collabco_groups_feature_og_features_default_permissions() {
       'member' => 'member',
       'non-member' => 'non-member',
     ),
+  );
+
+  // Exported og permission: 'node:group:view tags field'
+  $permissions['node:group:view tags field'] = array(
+    'roles' => array(),
   );
 
   return $permissions;
