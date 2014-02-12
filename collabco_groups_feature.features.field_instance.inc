@@ -804,8 +804,8 @@ function collabco_groups_feature_field_default_field_instances() {
   t('If you do not select any groups, then it will be visible to all members.');
   t('Parent Group');
   t('Request message');
-  t('This is the text a user may send to the group administrators.');
   t('Tags');
+  t('This is the text a user may send to the group administrators.');
 
   return $field_instances;
 }
