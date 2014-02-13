@@ -485,8 +485,8 @@ function collabco_groups_feature_views_default_views() {
 
   $view = new view();
   $view->name = 'subgroups';
-  $view->description = '';
-  $view->tag = 'default';
+  $view->description = 'Lists groups in a group.';
+  $view->tag = 'Group Feature';
   $view->base_table = 'node';
   $view->human_name = 'Subgroups';
   $view->core = 7;
