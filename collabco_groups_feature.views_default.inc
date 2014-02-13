@@ -329,7 +329,7 @@ function collabco_groups_feature_views_default_views() {
   $view = new view();
   $view->name = 'group_users';
   $view->description = 'Shows a grid of users in a group.';
-  $view->tag = 'Group feature';
+  $view->tag = 'Groups Feature';
   $view->base_table = 'users';
   $view->human_name = 'Group Users';
   $view->core = 7;
@@ -486,7 +486,7 @@ function collabco_groups_feature_views_default_views() {
   $view = new view();
   $view->name = 'subgroups';
   $view->description = 'Lists groups in a group.';
-  $view->tag = 'Group Feature';
+  $view->tag = 'Groups Feature';
   $view->base_table = 'node';
   $view->human_name = 'Subgroups';
   $view->core = 7;
