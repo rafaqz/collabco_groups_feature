@@ -291,10 +291,13 @@ function collabco_groups_feature_build_group_toolbar_block() {
   $block['og_context'] = $group;
 
   // Create list of links for each node type that the user can add to the group. 
+  
+  // Get all entities that can be added to a group.
   $group_field_info = field_info_field(OG_AUDIENCE_FIELD);
   if (!empty($group_field_info)) {
-    // Build render array structure.
+    // Get links for all group bundles.
     $node_links = collabco_groups_feature_build_node_links($group_field_info['bundles']['node'], $group['gid']);
+    // Build render array structure.
     $block = array();
     $block['content'] = array(
       '#type' => 'container',
