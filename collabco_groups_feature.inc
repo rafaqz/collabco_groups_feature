@@ -10,78 +10,6 @@
  *
  * @return array
  */
-function collabco_groups_feature_build_node_links($bundles, $gid = NULL, $options = array()) {
-  // Add menu link if the current user can create nodes in the bundle.
-  $items = array();
-  $group_type = 'node';
-  // Build query array for entity reference prepoluate.
-  $options = (!empty($gid) ? array_merge($options, collabco_groups_feature_prepopulate_query($gid)) : array());
-
-  // This is a group page. Add links only if the user has group permissions.
-  if (!empty($gid)) {
-    if (!og_is_member($group_type, $gid)) {
-      return;
-    }
-    $group = entity_load($group_type, array($gid));
-    foreach ($bundles as $bundle) {
-      // Construct permission name string for the node bundle.
-      $string = "create $bundle content";
-      if (og_user_access($group_type, $gid, $string)) {
-        $text = t('Create ') . node_type_get_name($bundle);
-        $url = "node/add/" . str_replace('_', '-', $bundle);
-        $items[$bundle] = l($text, $url, $options); 
-      }
-    }
-    return $items;
-  }
-  // Add links if the user has standard permissions.
-  foreach ($bundles as $bundle) {
-    // Construct permission name string for the node bundle.
-    $string = "create $bundle content";
-    if (user_access($string)) {
-      $text = t('Create ') . node_type_get_name($bundle);
-      $url = "node/add/" . str_replace('_', '-', $bundle);
-      $items[$bundle] = l($text, $url, $options); 
-    }
-  }
-  return $items;
-}  
-
-/**
- * Build a group list.
- *
- * @return array
- *   A Drupal build array.
- */
-function collabco_groups_feature_build_user_groups_list() {
-  global $user;
-
-  // Build groups list renderable array.
-  $group_links = array();
-  $groups = og_get_groups_by_user($user);
-  if (!empty($groups)) {
-    $list = array();
-    foreach ($groups['node'] as $key => $gid) {
-      if ($node = node_load($gid)) {
-        $url ='node/' . $node->nid; 
-        $list['#items'][$node->nid] = array(
-          '#theme' => 'link',
-          '#below' => array(),
-          '#localized_options' => array(),
-          '#attributes' => array(),
-          '#title' => $node->title, 
-          '#label' => $node->title, 
-          '#href' => $url,
-        );
-      }
-    }
-    if (!empty($list)) {
-      $list['#theme'] = 'item_list';
-    }
-    return $list;
-  }
-} 
-
 /**
  * Get prepoulate query array to add group context for links.
  *
@@ -95,8 +23,6 @@ function collabco_groups_feature_prepopulate_query($gid) {
   }
   return array();
 }
-
-
 function collabco_groups_feature_get_group_member_ids($entity_type, $gids, $group_type) { 
   $query = db_select('og_membership', 'm')
   ->fields('m', array('etid'))
@@ -167,7 +93,6 @@ function collabco_groups_feature_get_children_recursive($gids) {
   return array_merge($child_gids, $grandchild_gids);
 }
 
-
 function collabco_groups_feature_add_child_groups_to_entity($entity,$type) { 
   // Recursive function needs an array of gids by entity type.
   $wrapper = entity_metadata_wrapper($type, $entity);
@@ -213,34 +138,42 @@ function collabco_groups_feature_add_parent_terms_to_group($entity,$type) {
 }
 
 /**
- * Add a permissions aware create-content link to a view area.
+ * Build a list of groups for the current user.
+ *
+ * @return array
+ *   A Drupal build array.
  */
-function collabco_groups_feature_views_content_link($view, $display_id, $bundles, $areas) {
-  global $user;
-  $group = og_context();
-  $gid = !empty($group['gid']) ? $gid = $group['gid'] : NULL; 
-  $links = array(
-    '#theme' => 'item_list',
-    '#attributes' => array('class' => array('add-content-links')),
-    '#items' => collabco_groups_feature_build_node_links($bundles, $gid)
-  );
-  // Views wont render the array for us so we render now.
-  $rendered_links = drupal_render($links);
-  if ($links) {
-    $options = array(
-       'id' => 'area',
-       'table' => 'views',
-       'field' => 'area',
-       'empty' => TRUE,
-       'content' => $rendered_links,
-       'format' => 'filtered_html',
-       'tokenize' => 0,
-    );
-    foreach ($areas as $area) {
-      $view->add_item($display_id, $area, 'views', 'area', $options);
-    }
+function collabco_groups_feature_build_user_groups_list($account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
   }
-}
+
+  // Build groups list renderable array.
+  $group_links = array();
+  $groups = og_get_groups_by_user($account);
+  if (!empty($groups)) {
+    $list = array();
+    foreach ($groups['node'] as $key => $gid) {
+      if ($node = node_load($gid)) {
+        $url ='node/' . $node->nid; 
+        $list['#items'][$node->nid] = array(
+          '#theme' => 'link',
+          '#below' => array(),
+          '#localized_options' => array(),
+          '#attributes' => array(),
+          '#title' => $node->title, 
+          '#label' => $node->title, 
+          '#href' => $url,
+        );
+      }
+    }
+    if (!empty($list)) {
+      $list['#theme'] = 'item_list';
+    }
+    return $list;
+  }
+} 
 
 /**
  * Build a group list block.
@@ -296,7 +229,7 @@ function collabco_groups_feature_build_group_toolbar_block() {
   $group_field_info = field_info_field(OG_AUDIENCE_FIELD);
   if (!empty($group_field_info)) {
     // Get links for all group bundles.
-    $node_links = collabco_groups_feature_build_node_links($group_field_info['bundles']['node'], $group['gid']);
+    $node_links = collabco_integration_build_node_links($group_field_info['bundles']['node'], $group['gid']);
     // Build render array structure.
     $block = array();
     $block['content'] = array(
@@ -327,7 +260,6 @@ function collabco_groups_feature_build_group_toolbar_block() {
     return $block;
   }
 }
-
 
 /**
  * Build a group header block.
@@ -372,7 +304,7 @@ function collabco_groups_feature_build_group_header_block() {
   // Build the tab menu links.
   $path = 'node/' . $og_context['gid'];
   $subpaths = array('Home' => ''); 
-  $tabs = collabco_settings_feature_tabs_integration($path, $subpaths);
+  $tabs = collabco_integration_tabs_integration($path, $subpaths);
 
   // Build the block render array.
   $block = array();

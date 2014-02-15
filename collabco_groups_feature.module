@@ -8,75 +8,6 @@ include_once 'collabco_groups_feature.features.inc';
 include_once 'collabco_groups_feature.inc';
 
 /**
- * Implements hook_menu().
- */
-function collabco_groups_feature_menu() {
-  $items['node/%/taxonomy/%/add'] = array(
-    'page callback' => 'collabco_groups_feature_term_add_page',
-    'page arguments' => array(3),
-    'access callback' => 'collabco_groups_feature_term_add_access',
-    'access arguments' => array(3),
-  );
-  return $items;
-}
-
-/**
- * Implements hook_menu_alter().
- */
-function collabco_groups_feature_menu_alter(&$items) {
-  unset($items['node/%node/view']['title']);
-  $items['node/%node/view']['title callback'] = 'collabco_groups_feature_set_view_tab_title';
-  $items['node/%node/view']['title arguments'] = array(1);
-}
-
-/**
- * Menu callback to set group tab title for nodes.
- *
- * @return string
- */
-function collabco_groups_feature_set_view_tab_title($node) {
-  if (og_is_group('node',$node->nid)) {
-    return t('About');
-  }
-  return t('View');
-}
-
-/**
- * Menu callback to check access permission to term add page.
- *
- * @return bool
- */
-function collabco_groups_feature_term_add_access($bundle) {
-  if ($vocabulary = taxonomy_vocabulary_machine_name_load($bundle)) {
-    $perm_string = "edit terms in " .  $vocabulary->vid;
-    return user_access($perm_string);
-  }
-  else {
-    return TRUE;
-  }
-}
-/**
- * Menu callback to provide users with a term add page.
- *
- * @return array
- *   A Drupal build array.
- */
-function collabco_groups_feature_term_add_page($bundle) {
-  if ($vocabulary = taxonomy_vocabulary_machine_name_load($bundle)) {
-    module_load_include('inc', 'taxonomy', 'taxonomy.admin');
-    //Build taxonomy form.
-    drupal_set_title($title = t('Add ') . $vocabulary->name, $output = CHECK_PLAIN);
-    $form_id = 'taxonomy_form_term';
-    $edit = array();
-    $form = drupal_get_form($form_id, $edit, $vocabulary);
-    return drupal_render($form);
-  }
-  else {
-    return MENU_NOT_FOUND;
-  }
-}
-
-/**
  * Implements hook_init().
  * 
  * Set og context from url query, if its being used with entity prepopulate.
@@ -109,6 +40,76 @@ function collabco_groups_feature_init() {
         }
       }
     }
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function collabco_groups_feature_menu() {
+  $items['node/%/taxonomy/%/add'] = array(
+    'page callback' => 'collabco_groups_feature_term_add_page',
+    'page arguments' => array(3),
+    'access callback' => 'collabco_groups_feature_term_add_access',
+    'access arguments' => array(3),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function collabco_groups_feature_menu_alter(&$items) {
+  unset($items['node/%node/view']['title']);
+  $items['node/%node/view']['title callback'] = 'collabco_groups_feature_set_view_tab_title';
+  $items['node/%node/view']['title arguments'] = array(1);
+}
+
+/**
+ * Menu callback to set group tab title for group nodes.
+ *
+ * @return string
+ */
+function collabco_groups_feature_set_view_tab_title($node) {
+  if (og_is_group('node',$node->nid)) {
+    return t('About');
+  }
+  return t('View');
+}
+
+/**
+ * Menu callback to check access permission to term add page.
+ *
+ * @return bool
+ */
+function collabco_groups_feature_term_add_access($bundle) {
+  if ($vocabulary = taxonomy_vocabulary_machine_name_load($bundle)) {
+    $perm_string = "edit terms in " .  $vocabulary->vid;
+    return user_access($perm_string);
+  }
+  else {
+    return TRUE;
+  }
+}
+
+/**
+ * Menu callback to provide users with a term add page.
+ *
+ * @return array
+ *   A Drupal build array.
+ */
+function collabco_groups_feature_term_add_page($bundle) {
+  if ($vocabulary = taxonomy_vocabulary_machine_name_load($bundle)) {
+    module_load_include('inc', 'taxonomy', 'taxonomy.admin');
+    //Build taxonomy form.
+    drupal_set_title($title = t('Add ') . $vocabulary->name, $output = CHECK_PLAIN);
+    $form_id = 'taxonomy_form_term';
+    $edit = array();
+    $form = drupal_get_form($form_id, $edit, $vocabulary);
+    return drupal_render($form);
+  }
+  else {
+    return MENU_NOT_FOUND;
   }
 }
 
@@ -149,9 +150,12 @@ function collabco_groups_feature_block_view($delta='') {
 
 /**
  * Implements hook_preprocess_page().
+ *
+ * Hide title for groups pages, as it is allready in the header block.
+ * There could be a check to see if the header block is enabled?
  */
 function collabco_groups_feature_preprocess_page(&$vars) {
-  // show_title is true by default, unless it's allready set.
+  // Show_title is true by default, unless it's allready set.
   if (!isset($vars['show_title'])) { 
     $vars['show_title'] = TRUE; 
   }
@@ -176,28 +180,6 @@ function collabco_groups_feature_entity_insert($entity,$type) {
     //collabco_groups_feature_add_child_groups_to_entity($entity,$type);
     //break;
   //}
-}
-
-/**
- * Implements hook_views_pre_view().
- */
-function collabco_groups_feature_views_pre_view($view, $display_id, $args) {
-  // Find all Collabco integrations.
-  $integrations = module_invoke_all('collabco_integration');
-  foreach ($integrations as $integration) { 
-    if (!empty($integration['views'][$view->name][$display_id]['add_content_link'])) {
-      if (empty($integration['entity']['node'])) {
-        continue;
-      }
-      foreach($integration['entity']['node'] as $bundle => $options) {
-        if (!empty($options['add_content_link'])) {
-          $bundles[$bundle] = $bundle;
-        }
-        $areas = $integration['views'][$view->name][$display_id]['add_content_link']['areas'];
-        collabco_groups_feature_views_content_link($view, $display_id, $bundles, $areas);
-      }
-    }
-  }
 }
 
 /**
