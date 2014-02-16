@@ -4,6 +4,7 @@ core = 7.x
 package = Collabco
 project = collabco_groups_feature
 dependencies[] = block_class
+dependencies[] = collabco_integration
 dependencies[] = context
 dependencies[] = context_og
 dependencies[] = ctools
