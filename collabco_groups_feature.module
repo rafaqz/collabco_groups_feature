@@ -13,6 +13,7 @@ include_once 'collabco_groups_feature.inc';
  * Set og context from url query, if its being used with entity prepopulate.
  */
 function collabco_groups_feature_init() { 
+  // Get group id from path query, as used by entityreference_prepopulate.
   $params = drupal_get_query_parameters();
   if (!empty($params[OG_AUDIENCE_FIELD])) {
     $group = node_load($params[OG_AUDIENCE_FIELD]);

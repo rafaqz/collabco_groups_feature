@@ -216,12 +216,12 @@ function collabco_groups_feature_build_group_toolbar_block() {
   global $user;
 
   // Check if the current user is in the current group from context.
-  $group = og_context();
+  $og_context = og_context();
   $entity_type = 'user';
-  if (empty($group) or !og_is_member($group['group_type'], $group['gid'], $entity_type, $user)) {
+  if (empty($og_context ) or !og_is_member($og_context ['group_type'], $og_context ['gid'], $entity_type, $user)) {
     return;
   }
-  $block['og_context'] = $group;
+  $block['og_context'] = $og_context ;
 
   // Create list of links for each node type that the user can add to the group. 
   
@@ -229,7 +229,7 @@ function collabco_groups_feature_build_group_toolbar_block() {
   $group_field_info = field_info_field(OG_AUDIENCE_FIELD);
   if (!empty($group_field_info)) {
     // Get links for all group bundles.
-    $node_links = collabco_integration_build_node_links($group_field_info['bundles']['node'], $group['gid']);
+    $node_links = collabco_integration_build_node_links($group_field_info['bundles']['node'], $og_context ['gid']);
     // Build render array structure.
     $block = array();
     $block['content'] = array(
