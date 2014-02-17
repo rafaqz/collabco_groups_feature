@@ -12,33 +12,6 @@ function collabco_groups_feature_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
-  $export['collabco_groups_feature-group_header'] = array(
-    'cache' => 1,
-    'css_class' => '',
-    'custom' => 0,
-    'delta' => 'group_header',
-    'module' => 'collabco_groups_feature',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(),
-    'themes' => array(
-      'custom_zurb' => array(
-        'region' => 'header',
-        'status' => 1,
-        'theme' => 'custom_zurb',
-        'weight' => 0,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 0,
-  );
-
   $export['collabco_groups_feature-group_toolbar'] = array(
     'cache' => 1,
     'css_class' => '',

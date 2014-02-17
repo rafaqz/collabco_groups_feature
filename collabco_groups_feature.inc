@@ -40,20 +40,6 @@ function collabco_groups_feature_get_group_member_ids($entity_type, $gids, $grou
 }
 
 /**
- * Get base parent group title, currently only nodes.
- *
- * @return array of group ids.
- */
-function collabco_groups_feature_get_title_recursive($group) {
-  $title = l($group->title,"node/{$group->nid}");
-  if (empty($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id'])) {
-    return $title;
-  }
-  $group_parent = node_load($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id']);
-  return collabco_groups_feature_get_title_recursive($group_parent) . ' > ' . $title;
-}
-
-/**
  * Get all parent groups, currently only nodes.
  *
  * @return object - the group entity.
@@ -259,90 +245,5 @@ function collabco_groups_feature_build_group_toolbar_block() {
     );
     return $block;
   }
-}
-
-/**
- * Build a group header block.
- *
- * @return array
- *   A Drupal build array.
- */
-function collabco_groups_feature_build_group_header_block() {
-  $og_context = og_context();
-  if (empty($og_context)) {
-    return;
-  }
-  $node = node_load($og_context['gid']);
-
-  // Get group title and all parent group titles.
-  $title = collabco_groups_feature_get_title_recursive($node);
-
-  // Determine group privacy status.
-  if (!empty($node->{OG_ACCESS_FIELD}['und'][0]['value']) && $node->{OG_ACCESS_FIELD}['und'][0]['value'] === '1') {
-    $privacy = t('Private');
-  }
-  else {
-    $privacy = t('Public');
-  }
-
-  
-  // Build the description (body) field.
-  $description = field_view_field('node', $node, 'body', array(
-    'type' => 'text_summary_or_trimmed',
-    'label'=>'hidden',
-    'settings'=>array('trim_length' => 150),
-  ));
-  $description['#weight'] = '4';
-
-  // Build the group subscribe field.
-  $group_field = field_view_field('node', $node, OG_GROUP_FIELD, array(
-    'type' => 'og_group_subscribe',
-    'label'=> 'hidden',
-  ));
-  $group_field['#weight'] = '1';
-
-  // Build the tab menu links.
-  $path = 'node/' . $og_context['gid'];
-  $subpaths = array('Home' => ''); 
-  $tabs = collabco_integration_tabs_integration($path, $subpaths);
-
-  // Build the block render array.
-  $block = array();
-  $block['content'] = array(
-    'header-banner' => array(
-      '#type' => 'container',
-      '#attributes' => array('class' => array('header-banner', 'group')),
-      'header-details' => array(
-        '#type' => 'container',
-        '#attributes' => array('class' => array('header-details')),
-        'header-details-main' => array(
-          '#type' => 'container',
-          '#attributes' => array('class' => array('header-details-main')),
-          'title' => array(
-            '#type' => 'markup',
-            '#markup' => $title,
-            '#weight' => 0,
-            '#prefix' => '<h1>',
-            '#suffix' => '</h1>'
-          ),
-          'privacy-status' => array(
-            '#type' => 'markup',
-            '#markup' => $privacy,
-            '#weight' => 2,
-            '#prefix' => '<div class="privacy-status ' . $privacy . '">',
-            '#suffix' => '</div>',
-          ),
-          'description' => $description,
-        ),
-        'header-details-side' => array(
-          '#type' => 'container',
-          '#attributes' => array('class' => array('header-details-side')),
-          'group' => $group_field,
-        ),
-      ),
-      'header-content-tab' => $tabs,
-    ),
-  );
-  return $block;
 }
 

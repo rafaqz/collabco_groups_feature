@@ -122,9 +122,6 @@ function collabco_groups_feature_block_info() {
     'group_toolbar' => array(
       'info' => t('Group Toolbar'),
     ),
-    'group_header' => array(
-      'info' => t('Group Header'),
-    ),
     'user_groups_list' => array(
       'info' => t('User Groups List'),
     ),
@@ -140,32 +137,11 @@ function collabco_groups_feature_block_view($delta='') {
     case 'group_toolbar' :
       $block = collabco_groups_feature_build_group_toolbar_block();
       return $block;
-    case 'group_header' :
-      $block = collabco_groups_feature_build_group_header_block();
-      return $block;
     case 'user_groups_list' :
       $block = collabco_groups_feature_build_user_groups_list_block();
       return $block;
   }
 } 
-
-/**
- * Implements hook_preprocess_page().
- *
- * Hide title for groups pages, as it is allready in the header block.
- * There could be a check to see if the header block is enabled?
- */
-function collabco_groups_feature_preprocess_page(&$vars) {
-  // Show_title is true by default, unless it's allready set.
-  if (!isset($vars['show_title'])) { 
-    $vars['show_title'] = TRUE; 
-  }
-  if (isset($vars['node']->{OG_GROUP_FIELD})) {
-    if ($vars['node']->{OG_GROUP_FIELD}['und'][0]['value'] === '1') { 
-      $vars['show_title'] = FALSE;
-    }
-  }
-}
 
 /**
  * Implements hook_entity_insert().
