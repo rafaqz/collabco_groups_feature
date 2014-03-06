@@ -45,19 +45,6 @@ function collabco_groups_feature_init() {
 }
 
 /**
- * Implements hook_menu().
- */
-function collabco_groups_feature_menu() {
-  $items['node/%/taxonomy/%/add'] = array(
-    'page callback' => 'collabco_groups_feature_term_add_page',
-    'page arguments' => array(3),
-    'access callback' => 'collabco_groups_feature_term_add_access',
-    'access arguments' => array(3),
-  );
-  return $items;
-}
-
-/**
  * Implements hook_menu_alter().
  */
 function collabco_groups_feature_menu_alter(&$items) {
@@ -76,42 +63,6 @@ function collabco_groups_feature_set_view_tab_title($node) {
     return t('About');
   }
   return t('View');
-}
-
-/**
- * Menu callback to check access permission to term add page.
- *
- * @return bool
- */
-function collabco_groups_feature_term_add_access($bundle) {
-  if ($vocabulary = taxonomy_vocabulary_machine_name_load($bundle)) {
-    $perm_string = "edit terms in " .  $vocabulary->vid;
-    return user_access($perm_string);
-  }
-  else {
-    return TRUE;
-  }
-}
-
-/**
- * Menu callback to provide users with a term add page.
- *
- * @return array
- *   A Drupal build array.
- */
-function collabco_groups_feature_term_add_page($bundle) {
-  if ($vocabulary = taxonomy_vocabulary_machine_name_load($bundle)) {
-    module_load_include('inc', 'taxonomy', 'taxonomy.admin');
-    //Build taxonomy form.
-    drupal_set_title($title = t('Add ') . $vocabulary->name, $output = CHECK_PLAIN);
-    $form_id = 'taxonomy_form_term';
-    $edit = array();
-    $form = drupal_get_form($form_id, $edit, $vocabulary);
-    return drupal_render($form);
-  }
-  else {
-    return MENU_NOT_FOUND;
-  }
 }
 
 /**
@@ -142,22 +93,6 @@ function collabco_groups_feature_block_view($delta='') {
       return $block;
   }
 } 
-
-/**
- * Implements hook_entity_insert().
- * 
- * Add new subgroup gid to group terms.
- */
-function collabco_groups_feature_entity_insert($entity,$type) { 
-  //switch ($type) {
-  //case 'node':
-    //collabco_groups_feature_add_parent_terms_to_group($entity,$type);
-    //break;
-  //case 'taxonomy_term':
-    //collabco_groups_feature_add_child_groups_to_entity($entity,$type);
-    //break;
-  //}
-}
 
 /**
  * Implements hook_collabco_integration().
