@@ -355,7 +355,6 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:delete any group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
-      'member' => 'member',
     ),
   );
 
@@ -441,7 +440,6 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update any group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
-      'member' => 'member',
     ),
   );
 
@@ -457,6 +455,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update field_first_name field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -464,6 +463,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update field_last_name field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -478,6 +478,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update group_access field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -485,6 +486,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update group_group field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -500,6 +502,7 @@ function collabco_groups_feature_og_features_default_permissions() {
   $permissions['node:group:update og_user_node field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
