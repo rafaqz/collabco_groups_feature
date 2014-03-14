@@ -495,7 +495,7 @@ function collabco_groups_feature_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Groups';
+  $handler->display->display_options['title'] = 'User Groups';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'access user profiles';
@@ -543,8 +543,8 @@ function collabco_groups_feature_views_default_views() {
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  /* Display: User Page */
+  $handler = $view->new_display('page', 'User Page', 'user_page');
   $handler->display->display_options['path'] = 'user/%/groups';
   $export['groups'] = $view;
 
