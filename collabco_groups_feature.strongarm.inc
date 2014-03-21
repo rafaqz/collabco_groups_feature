@@ -242,6 +242,7 @@ function collabco_groups_feature_strongarm() {
   $strongarm->name = 'node_options_closed_group';
   $strongarm->value = array(
     0 => 'status',
+    1 => 'revision',
   );
   $export['node_options_closed_group'] = $strongarm;
 
@@ -251,6 +252,7 @@ function collabco_groups_feature_strongarm() {
   $strongarm->name = 'node_options_group';
   $strongarm->value = array(
     0 => 'status',
+    1 => 'revision',
   );
   $export['node_options_group'] = $strongarm;
 
