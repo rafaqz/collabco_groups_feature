@@ -143,19 +143,11 @@ function collabco_groups_feature_build_user_groups_list($account = NULL) {
     foreach ($groups['node'] as $key => $gid) {
       if ($node = node_load($gid)) {
         $url ='node/' . $node->nid; 
-        $list['#items'][$node->nid] = array(
-          '#theme' => 'link',
-          '#below' => array(),
-          '#localized_options' => array(),
-          '#attributes' => array(),
-          '#title' => $node->title, 
-          '#label' => $node->title, 
-          '#href' => $url,
+        $list[$node->nid] = array(
+          'title' => $node->title, 
+          'href' => $url,
         );
       }
-    }
-    if (!empty($list)) {
-      $list['#theme'] = 'item_list';
     }
     return $list;
   }
