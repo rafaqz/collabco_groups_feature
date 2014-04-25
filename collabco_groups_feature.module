@@ -105,9 +105,15 @@ function collabco_groups_feature_collabco_integration() {
         'node'=> array(
           'closed_group' => array(
             'add_content_link' => TRUE,
+            'image'=> array(
+              'enabled' => TRUE,
+            ),
           ),
           'group' => array(
             'add_content_link' => TRUE,
+            'image'=> array(
+              'enabled' => TRUE,
+            ),
           ),
         ),
       ),
