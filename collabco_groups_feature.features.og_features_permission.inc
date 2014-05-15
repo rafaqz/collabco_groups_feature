@@ -411,7 +411,9 @@ function collabco_groups_feature_og_features_default_permissions() {
 
   // Exported og permission: 'node:group:subscribe without approval'
   $permissions['node:group:subscribe without approval'] = array(
-    'roles' => array(),
+    'roles' => array(
+      'non-member' => 'non-member',
+    ),
   );
 
   // Exported og permission: 'node:group:unsubscribe'
