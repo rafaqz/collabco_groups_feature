@@ -19,9 +19,9 @@ function collabco_groups_feature_user_default_permissions() {
     'module' => 'og',
   );
 
-  // Exported permission: 'create closed_group content'.
-  $permissions['create closed_group content'] = array(
-    'name' => 'create closed_group content',
+  // Exported permission: 'create private_group content'.
+  $permissions['create private_group content'] = array(
+    'name' => 'create private_group content',
     'roles' => array(
       'Admin' => 'Admin',
       'Community Moderator' => 'Community Moderator',
@@ -41,9 +41,9 @@ function collabco_groups_feature_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete any closed_group content'.
-  $permissions['delete any closed_group content'] = array(
-    'name' => 'delete any closed_group content',
+  // Exported permission: 'delete any private_group content'.
+  $permissions['delete any private_group content'] = array(
+    'name' => 'delete any private_group content',
     'roles' => array(
       'Admin' => 'Admin',
       'Community Moderator' => 'Community Moderator',
@@ -63,9 +63,9 @@ function collabco_groups_feature_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete own closed_group content'.
-  $permissions['delete own closed_group content'] = array(
-    'name' => 'delete own closed_group content',
+  // Exported permission: 'delete own private_group content'.
+  $permissions['delete own private_group content'] = array(
+    'name' => 'delete own private_group content',
     'roles' => array(
       'Admin' => 'Admin',
       'Community Moderator' => 'Community Moderator',
@@ -85,9 +85,9 @@ function collabco_groups_feature_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit any closed_group content'.
-  $permissions['edit any closed_group content'] = array(
-    'name' => 'edit any closed_group content',
+  // Exported permission: 'edit any private_group content'.
+  $permissions['edit any private_group content'] = array(
+    'name' => 'edit any private_group content',
     'roles' => array(
       'Admin' => 'Admin',
       'Community Moderator' => 'Community Moderator',
@@ -107,9 +107,9 @@ function collabco_groups_feature_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit own closed_group content'.
-  $permissions['edit own closed_group content'] = array(
-    'name' => 'edit own closed_group content',
+  // Exported permission: 'edit own private_group content'.
+  $permissions['edit own private_group content'] = array(
+    'name' => 'edit own private_group content',
     'roles' => array(
       'Admin' => 'Admin',
       'Community Moderator' => 'Community Moderator',

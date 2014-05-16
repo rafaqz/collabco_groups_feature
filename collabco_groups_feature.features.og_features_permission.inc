@@ -10,283 +10,283 @@
 function collabco_groups_feature_og_features_default_permissions() {
   $permissions = array();
 
-  // Exported og permission: 'node:closed_group:add user'
-  $permissions['node:closed_group:add user'] = array(
+  // Exported og permission: 'node:private_group:add user'
+  $permissions['node:private_group:add user'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:administer group'
-  $permissions['node:closed_group:administer group'] = array(
+  // Exported og permission: 'node:private_group:administer group'
+  $permissions['node:private_group:administer group'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:approve and deny subscription'
-  $permissions['node:closed_group:approve and deny subscription'] = array(
+  // Exported og permission: 'node:private_group:approve and deny subscription'
+  $permissions['node:private_group:approve and deny subscription'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:create basic_page content'
-  $permissions['node:closed_group:create basic_page content'] = array(
+  // Exported og permission: 'node:private_group:create basic_page content'
+  $permissions['node:private_group:create basic_page content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:create closed_group content'
-  $permissions['node:closed_group:create closed_group content'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-      'member' => 'member',
-    ),
-  );
-
-  // Exported og permission: 'node:closed_group:create group content'
-  $permissions['node:closed_group:create group content'] = array(
+  // Exported og permission: 'node:private_group:create private_group content'
+  $permissions['node:private_group:create private_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:delete any basic_page content'
-  $permissions['node:closed_group:delete any basic_page content'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-    ),
-  );
-
-  // Exported og permission: 'node:closed_group:delete any closed_group content'
-  $permissions['node:closed_group:delete any closed_group content'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-    ),
-  );
-
-  // Exported og permission: 'node:closed_group:delete any group content'
-  $permissions['node:closed_group:delete any group content'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-    ),
-  );
-
-  // Exported og permission: 'node:closed_group:delete own basic_page content'
-  $permissions['node:closed_group:delete own basic_page content'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-    ),
-  );
-
-  // Exported og permission: 'node:closed_group:delete own closed_group content'
-  $permissions['node:closed_group:delete own closed_group content'] = array(
+  // Exported og permission: 'node:private_group:create group content'
+  $permissions['node:private_group:create group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:delete own group content'
-  $permissions['node:closed_group:delete own group content'] = array(
+  // Exported og permission: 'node:private_group:delete any basic_page content'
+  $permissions['node:private_group:delete any basic_page content'] = array(
+    'roles' => array(
+      'administrator member' => 'administrator member',
+    ),
+  );
+
+  // Exported og permission: 'node:private_group:delete any private_group content'
+  $permissions['node:private_group:delete any private_group content'] = array(
+    'roles' => array(
+      'administrator member' => 'administrator member',
+    ),
+  );
+
+  // Exported og permission: 'node:private_group:delete any group content'
+  $permissions['node:private_group:delete any group content'] = array(
+    'roles' => array(
+      'administrator member' => 'administrator member',
+    ),
+  );
+
+  // Exported og permission: 'node:private_group:delete own basic_page content'
+  $permissions['node:private_group:delete own basic_page content'] = array(
+    'roles' => array(
+      'administrator member' => 'administrator member',
+    ),
+  );
+
+  // Exported og permission: 'node:private_group:delete own private_group content'
+  $permissions['node:private_group:delete own private_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:manage members'
-  $permissions['node:closed_group:manage members'] = array(
+  // Exported og permission: 'node:private_group:delete own group content'
+  $permissions['node:private_group:delete own group content'] = array(
+    'roles' => array(
+      'administrator member' => 'administrator member',
+      'member' => 'member',
+    ),
+  );
+
+  // Exported og permission: 'node:private_group:manage members'
+  $permissions['node:private_group:manage members'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:manage permissions'
-  $permissions['node:closed_group:manage permissions'] = array(
+  // Exported og permission: 'node:private_group:manage permissions'
+  $permissions['node:private_group:manage permissions'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:manage roles'
-  $permissions['node:closed_group:manage roles'] = array(
+  // Exported og permission: 'node:private_group:manage roles'
+  $permissions['node:private_group:manage roles'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:subscribe'
-  $permissions['node:closed_group:subscribe'] = array(
+  // Exported og permission: 'node:private_group:subscribe'
+  $permissions['node:private_group:subscribe'] = array(
     'roles' => array(),
   );
 
-  // Exported og permission: 'node:closed_group:subscribe without approval'
-  $permissions['node:closed_group:subscribe without approval'] = array(
+  // Exported og permission: 'node:private_group:subscribe without approval'
+  $permissions['node:private_group:subscribe without approval'] = array(
     'roles' => array(),
   );
 
-  // Exported og permission: 'node:closed_group:unsubscribe'
-  $permissions['node:closed_group:unsubscribe'] = array(
+  // Exported og permission: 'node:private_group:unsubscribe'
+  $permissions['node:private_group:unsubscribe'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update any basic_page content'
-  $permissions['node:closed_group:update any basic_page content'] = array(
+  // Exported og permission: 'node:private_group:update any basic_page content'
+  $permissions['node:private_group:update any basic_page content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update any closed_group content'
-  $permissions['node:closed_group:update any closed_group content'] = array(
+  // Exported og permission: 'node:private_group:update any private_group content'
+  $permissions['node:private_group:update any private_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update any group content'
-  $permissions['node:closed_group:update any group content'] = array(
+  // Exported og permission: 'node:private_group:update any group content'
+  $permissions['node:private_group:update any group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update body field'
-  $permissions['node:closed_group:update body field'] = array(
+  // Exported og permission: 'node:private_group:update body field'
+  $permissions['node:private_group:update body field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update field_first_name field'
-  $permissions['node:closed_group:update field_first_name field'] = array(
+  // Exported og permission: 'node:private_group:update field_first_name field'
+  $permissions['node:private_group:update field_first_name field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update field_last_name field'
-  $permissions['node:closed_group:update field_last_name field'] = array(
+  // Exported og permission: 'node:private_group:update field_last_name field'
+  $permissions['node:private_group:update field_last_name field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update group'
-  $permissions['node:closed_group:update group'] = array(
+  // Exported og permission: 'node:private_group:update group'
+  $permissions['node:private_group:update group'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update group_access field'
-  $permissions['node:closed_group:update group_access field'] = array(
+  // Exported og permission: 'node:private_group:update group_access field'
+  $permissions['node:private_group:update group_access field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update group_group field'
-  $permissions['node:closed_group:update group_group field'] = array(
+  // Exported og permission: 'node:private_group:update group_group field'
+  $permissions['node:private_group:update group_group field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update og_group_ref field'
-  $permissions['node:closed_group:update og_group_ref field'] = array(
+  // Exported og permission: 'node:private_group:update og_group_ref field'
+  $permissions['node:private_group:update og_group_ref field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update og_user_node field'
-  $permissions['node:closed_group:update og_user_node field'] = array(
+  // Exported og permission: 'node:private_group:update og_user_node field'
+  $permissions['node:private_group:update og_user_node field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update own basic_page content'
-  $permissions['node:closed_group:update own basic_page content'] = array(
+  // Exported og permission: 'node:private_group:update own basic_page content'
+  $permissions['node:private_group:update own basic_page content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:update own closed_group content'
-  $permissions['node:closed_group:update own closed_group content'] = array(
-    'roles' => array(
-      'administrator member' => 'administrator member',
-      'member' => 'member',
-    ),
-  );
-
-  // Exported og permission: 'node:closed_group:update own group content'
-  $permissions['node:closed_group:update own group content'] = array(
+  // Exported og permission: 'node:private_group:update own private_group content'
+  $permissions['node:private_group:update own private_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:view body field'
-  $permissions['node:closed_group:view body field'] = array(
+  // Exported og permission: 'node:private_group:update own group content'
+  $permissions['node:private_group:update own group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:view field_first_name field'
-  $permissions['node:closed_group:view field_first_name field'] = array(
+  // Exported og permission: 'node:private_group:view body field'
+  $permissions['node:private_group:view body field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:view field_last_name field'
-  $permissions['node:closed_group:view field_last_name field'] = array(
+  // Exported og permission: 'node:private_group:view field_first_name field'
+  $permissions['node:private_group:view field_first_name field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:view group_access field'
-  $permissions['node:closed_group:view group_access field'] = array(
+  // Exported og permission: 'node:private_group:view field_last_name field'
+  $permissions['node:private_group:view field_last_name field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:view group_group field'
-  $permissions['node:closed_group:view group_group field'] = array(
+  // Exported og permission: 'node:private_group:view group_access field'
+  $permissions['node:private_group:view group_access field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:view og_group_ref field'
-  $permissions['node:closed_group:view og_group_ref field'] = array(
+  // Exported og permission: 'node:private_group:view group_group field'
+  $permissions['node:private_group:view group_group field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
     ),
   );
 
-  // Exported og permission: 'node:closed_group:view og_user_node field'
-  $permissions['node:closed_group:view og_user_node field'] = array(
+  // Exported og permission: 'node:private_group:view og_group_ref field'
+  $permissions['node:private_group:view og_group_ref field'] = array(
+    'roles' => array(
+      'administrator member' => 'administrator member',
+      'member' => 'member',
+    ),
+  );
+
+  // Exported og permission: 'node:private_group:view og_user_node field'
+  $permissions['node:private_group:view og_user_node field'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
@@ -321,8 +321,8 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:group:create closed_group content'
-  $permissions['node:group:create closed_group content'] = array(
+  // Exported og permission: 'node:group:create private_group content'
+  $permissions['node:group:create private_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
@@ -344,8 +344,8 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:group:delete any closed_group content'
-  $permissions['node:group:delete any closed_group content'] = array(
+  // Exported og permission: 'node:group:delete any private_group content'
+  $permissions['node:group:delete any private_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
@@ -365,8 +365,8 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:group:delete own closed_group content'
-  $permissions['node:group:delete own closed_group content'] = array(
+  // Exported og permission: 'node:group:delete own private_group content'
+  $permissions['node:group:delete own private_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',
@@ -431,8 +431,8 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:group:update any closed_group content'
-  $permissions['node:group:update any closed_group content'] = array(
+  // Exported og permission: 'node:group:update any private_group content'
+  $permissions['node:group:update any private_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
     ),
@@ -515,8 +515,8 @@ function collabco_groups_feature_og_features_default_permissions() {
     ),
   );
 
-  // Exported og permission: 'node:group:update own closed_group content'
-  $permissions['node:group:update own closed_group content'] = array(
+  // Exported og permission: 'node:group:update own private_group content'
+  $permissions['node:group:update own private_group content'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
       'member' => 'member',

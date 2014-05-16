@@ -10,9 +10,9 @@
 function collabco_groups_feature_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'comment-comment_node_closed_group-comment_body'
-  $field_instances['comment-comment_node_closed_group-comment_body'] = array(
-    'bundle' => 'comment_node_closed_group',
+  // Exported field_instance: 'comment-comment_node_private_group-comment_body'
+  $field_instances['comment-comment_node_private_group-comment_body'] = array(
+    'bundle' => 'comment_node_private_group',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -146,9 +146,9 @@ function collabco_groups_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-closed_group-body'
-  $field_instances['node-closed_group-body'] = array(
-    'bundle' => 'closed_group',
+  // Exported field_instance: 'node-private_group-body'
+  $field_instances['node-private_group-body'] = array(
+    'bundle' => 'private_group',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -221,9 +221,9 @@ function collabco_groups_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-closed_group-group_access'
-  $field_instances['node-closed_group-group_access'] = array(
-    'bundle' => 'closed_group',
+  // Exported field_instance: 'node-private_group-group_access'
+  $field_instances['node-private_group-group_access'] = array(
+    'bundle' => 'private_group',
     'default_value' => array(
       0 => array(
         'value' => 1,
@@ -276,9 +276,9 @@ function collabco_groups_feature_field_default_field_instances() {
     'widget_type' => 'options_select',
   );
 
-  // Exported field_instance: 'node-closed_group-group_group'
-  $field_instances['node-closed_group-group_group'] = array(
-    'bundle' => 'closed_group',
+  // Exported field_instance: 'node-private_group-group_group'
+  $field_instances['node-private_group-group_group'] = array(
+    'bundle' => 'private_group',
     'default_value' => array(
       0 => array(
         'value' => 1,
@@ -337,9 +337,9 @@ function collabco_groups_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-closed_group-og_group_ref'
-  $field_instances['node-closed_group-og_group_ref'] = array(
-    'bundle' => 'closed_group',
+  // Exported field_instance: 'node-private_group-og_group_ref'
+  $field_instances['node-private_group-og_group_ref'] = array(
+    'bundle' => 'private_group',
     'default_value' => NULL,
     'default_value_function' => 'entityreference_prepopulate_field_default_value',
     'deleted' => 0,

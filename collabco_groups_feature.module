@@ -103,7 +103,7 @@ function collabco_groups_feature_collabco_integration() {
     'collabco_groups_feature' => array(
       'entity' => array(
         'node'=> array(
-          'closed_group' => array(
+          'private_group' => array(
             'add_content_link' => TRUE,
             'image'=> array(
               'enabled' => TRUE,

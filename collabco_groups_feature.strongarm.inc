@@ -13,9 +13,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_anonymous_closed_group';
+  $strongarm->name = 'comment_anonymous_private_group';
   $strongarm->value = 0;
-  $export['comment_anonymous_closed_group'] = $strongarm;
+  $export['comment_anonymous_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -27,16 +27,16 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_closed_group';
+  $strongarm->name = 'comment_private_group';
   $strongarm->value = '1';
-  $export['comment_closed_group'] = $strongarm;
+  $export['comment_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_mode_closed_group';
+  $strongarm->name = 'comment_default_mode_private_group';
   $strongarm->value = 1;
-  $export['comment_default_mode_closed_group'] = $strongarm;
+  $export['comment_default_mode_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -48,9 +48,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_per_page_closed_group';
+  $strongarm->name = 'comment_default_per_page_private_group';
   $strongarm->value = '50';
-  $export['comment_default_per_page_closed_group'] = $strongarm;
+  $export['comment_default_per_page_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -62,9 +62,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_form_location_closed_group';
+  $strongarm->name = 'comment_form_location_private_group';
   $strongarm->value = 1;
-  $export['comment_form_location_closed_group'] = $strongarm;
+  $export['comment_form_location_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -83,9 +83,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_preview_closed_group';
+  $strongarm->name = 'comment_preview_private_group';
   $strongarm->value = '1';
-  $export['comment_preview_closed_group'] = $strongarm;
+  $export['comment_preview_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -97,9 +97,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_subject_field_closed_group';
+  $strongarm->name = 'comment_subject_field_private_group';
   $strongarm->value = 1;
-  $export['comment_subject_field_closed_group'] = $strongarm;
+  $export['comment_subject_field_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -111,7 +111,7 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'field_bundle_settings_node__closed_group';
+  $strongarm->name = 'field_bundle_settings_node__private_group';
   $strongarm->value = array(
     'view_modes' => array(
       'teaser' => array(
@@ -154,7 +154,7 @@ function collabco_groups_feature_strongarm() {
       'display' => array(),
     ),
   );
-  $export['field_bundle_settings_node__closed_group'] = $strongarm;
+  $export['field_bundle_settings_node__private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -207,11 +207,11 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_options_closed_group';
+  $strongarm->name = 'menu_options_private_group';
   $strongarm->value = array(
     0 => 'main-menu',
   );
-  $export['menu_options_closed_group'] = $strongarm;
+  $export['menu_options_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -225,9 +225,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_parent_closed_group';
+  $strongarm->name = 'menu_parent_private_group';
   $strongarm->value = 'main-menu:0';
-  $export['menu_parent_closed_group'] = $strongarm;
+  $export['menu_parent_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -239,12 +239,12 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_options_closed_group';
+  $strongarm->name = 'node_options_private_group';
   $strongarm->value = array(
     0 => 'status',
     1 => 'revision',
   );
-  $export['node_options_closed_group'] = $strongarm;
+  $export['node_options_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -259,9 +259,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_preview_closed_group';
+  $strongarm->name = 'node_preview_private_group';
   $strongarm->value = '1';
-  $export['node_preview_closed_group'] = $strongarm;
+  $export['node_preview_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -273,9 +273,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_submitted_closed_group';
+  $strongarm->name = 'node_submitted_private_group';
   $strongarm->value = 0;
-  $export['node_submitted_closed_group'] = $strongarm;
+  $export['node_submitted_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -294,9 +294,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'og_group_manager_default_rids_node_closed_group';
+  $strongarm->name = 'og_group_manager_default_rids_node_private_group';
   $strongarm->value = array();
-  $export['og_group_manager_default_rids_node_closed_group'] = $strongarm;
+  $export['og_group_manager_default_rids_node_private_group'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -343,9 +343,9 @@ function collabco_groups_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'pathauto_node_closed_group_pattern';
+  $strongarm->name = 'pathauto_node_private_group_pattern';
   $strongarm->value = '[node:content-type]/[node:title]';
-  $export['pathauto_node_closed_group_pattern'] = $strongarm;
+  $export['pathauto_node_private_group_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

@@ -28,8 +28,8 @@ function collabco_groups_feature_views_api($module = NULL, $api = NULL) {
  */
 function collabco_groups_feature_node_info() {
   $items = array(
-    'closed_group' => array(
-      'name' => t('Closed Group'),
+    'private_group' => array(
+      'name' => t('Private Group'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',
