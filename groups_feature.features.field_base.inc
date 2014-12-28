@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * collabco_groups_feature.features.field_base.inc
+ * groups_feature.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function collabco_groups_feature_field_default_field_bases() {
+function groups_feature_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'group_access'

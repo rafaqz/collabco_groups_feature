@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * collabco_groups_feature.context.inc
+ * groups_feature.context.inc
  */
 
 /**
  * Implements hook_context_default_contexts().
  */
-function collabco_groups_feature_context_default_contexts() {
+function groups_feature_context_default_contexts() {
   $export = array();
 
   $context = new stdClass();

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * collabco_groups_feature.features.og_features_permission.inc
+ * groups_feature.features.og_features_permission.inc
  */
 
 /**
  * Implements hook_og_features_default_permissions().
  */
-function collabco_groups_feature_og_features_default_permissions() {
+function groups_feature_og_features_default_permissions() {
   $permissions = array();
 
   // Exported og permission: 'node:private_group:add user'

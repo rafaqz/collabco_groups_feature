@@ -1,23 +1,23 @@
 <?php
 /**
  * @file
- * collabco_groups_feature.features.fe_block_settings.inc
+ * groups_feature.features.fe_block_settings.inc
  */
 
 /**
  * Implements hook_default_fe_block_settings().
  */
-function collabco_groups_feature_default_fe_block_settings() {
+function groups_feature_default_fe_block_settings() {
   $export = array();
 
   $export['version'] = '2.0';
 
-  $export['collabco_groups_feature-group_toolbar'] = array(
+  $export['groups_feature-group_toolbar'] = array(
     'cache' => 1,
     'css_class' => '',
     'custom' => 0,
     'delta' => 'group_toolbar',
-    'module' => 'collabco_groups_feature',
+    'module' => 'groups_feature',
     'node_types' => array(),
     'pages' => '',
     'roles' => array(),
@@ -39,12 +39,12 @@ function collabco_groups_feature_default_fe_block_settings() {
     'visibility' => 0,
   );
 
-  $export['collabco_groups_feature-user_groups_list'] = array(
+  $export['groups_feature-user_groups_list'] = array(
     'cache' => 1,
     'css_class' => '',
     'custom' => 0,
     'delta' => 'user_groups_list',
-    'module' => 'collabco_groups_feature',
+    'module' => 'groups_feature',
     'node_types' => array(),
     'pages' => '',
     'roles' => array(),

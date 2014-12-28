@@ -15,7 +15,7 @@
  *
  * @return array $options
  */
-function collabco_groups_feature_prepopulate_query($gid) {
+function groups_feature_prepopulate_query($gid) {
   if (!empty($gid)) {
     $query_array = array(OG_AUDIENCE_FIELD => $gid);
     $options = array('query' => $query_array);
@@ -23,7 +23,7 @@ function collabco_groups_feature_prepopulate_query($gid) {
   }
   return array();
 }
-function collabco_groups_feature_get_group_member_ids($entity_type, $gids, $group_type) { 
+function groups_feature_get_group_member_ids($entity_type, $gids, $group_type) { 
   $query = db_select('og_membership', 'm')
   ->fields('m', array('etid'))
   ->condition('entity_type', $entity_type, '=')
@@ -44,12 +44,12 @@ function collabco_groups_feature_get_group_member_ids($entity_type, $gids, $grou
  *
  * @return object - the group entity.
  */
-function collabco_groups_feature_get_parent_recursive($group) {
+function groups_feature_get_parent_recursive($group) {
   if (empty($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id'])) {
     return $group;
   }
   $group_parent = node_load($group->{OG_AUDIENCE_FIELD}['und'][0]['target_id']);
-  return collabco_groups_feature_get_parent_recursive($group_parent);
+  return groups_feature_get_parent_recursive($group_parent);
 }
 
 /**
@@ -57,7 +57,7 @@ function collabco_groups_feature_get_parent_recursive($group) {
  *
  * @return array of group ids.
  */
-function collabco_groups_feature_get_children_recursive($gids) {
+function groups_feature_get_children_recursive($gids) {
   // Get children of all passed gids.
   $entity_type = 'node';
   if (!empty($gids[$entity_type])) {
@@ -75,15 +75,15 @@ function collabco_groups_feature_get_children_recursive($gids) {
   if (empty($child_gids)) {
     return array();
   }
-  $grandchild_gids = collabco_groups_feature_get_children_recursive($child_gids);
+  $grandchild_gids = groups_feature_get_children_recursive($child_gids);
   return array_merge($child_gids, $grandchild_gids);
 }
 
-function collabco_groups_feature_add_child_groups_to_entity($entity,$type) { 
+function groups_feature_add_child_groups_to_entity($entity,$type) { 
   // Recursive function needs an array of gids by entity type.
   $wrapper = entity_metadata_wrapper($type, $entity);
   $gids = array('node' => $wrapper->{OG_AUDIENCE_FIELD}->raw()); 
-  $child_gids = collabco_groups_feature_get_children_recursive($gids);
+  $child_gids = groups_feature_get_children_recursive($gids);
   if (empty($child_gids['node'])) { 
     return;
   }
@@ -101,7 +101,7 @@ function collabco_groups_feature_add_child_groups_to_entity($entity,$type) {
 /**
  * Add all taxonomy terms from the parent group to the newly created group.
  */
-function collabco_groups_feature_add_parent_terms_to_group($entity,$type) { 
+function groups_feature_add_parent_terms_to_group($entity,$type) { 
   $wrapper = entity_metadata_wrapper($type, $entity);
   // Only look at groups.
   if (!$wrapper->__isset(OG_GROUP_FIELD) || $wrapper->{OG_GROUP_FIELD}->value() == '0') {
@@ -113,7 +113,7 @@ function collabco_groups_feature_add_parent_terms_to_group($entity,$type) {
   }
   // Find all taxonomy terms in the group.
   $gids = array('node' => array($wrapper->{OG_AUDIENCE_FIELD}->raw())); 
-  $tids = collabco_groups_feature_get_group_member_ids('taxonomy_term', $gids, 'node'); 
+  $tids = groups_feature_get_group_member_ids('taxonomy_term', $gids, 'node'); 
   // Add all terms from the parent group to the newly created group.
   // This should be done directly with og_group to skip the load/save.
   foreach ($tids as $tid) {
@@ -129,7 +129,7 @@ function collabco_groups_feature_add_parent_terms_to_group($entity,$type) {
  * @return array
  *   A Drupal build array.
  */
-function collabco_groups_feature_build_user_groups_list($account = NULL) {
+function groups_feature_build_user_groups_list($account = NULL) {
   if (empty($account)) {
     global $user;
     $account = $user;
@@ -159,9 +159,9 @@ function collabco_groups_feature_build_user_groups_list($account = NULL) {
  * @return array
  *   A Drupal build array.
  */
-function collabco_groups_feature_build_user_groups_list_block() {
+function groups_feature_build_user_groups_list_block() {
   $block = array();
-  $links = collabco_groups_feature_build_user_groups_list(); 
+  $links = groups_feature_build_user_groups_list(); 
 
   if (empty($links)) { 
     return;
@@ -190,7 +190,7 @@ function collabco_groups_feature_build_user_groups_list_block() {
  * @return array
  *   A Drupal build array.
  */
-function collabco_groups_feature_build_group_toolbar_block() {
+function groups_feature_build_group_toolbar_block() {
   global $user;
 
   // Check if the current user is in the current group from context.
@@ -207,7 +207,7 @@ function collabco_groups_feature_build_group_toolbar_block() {
   $group_field_info = field_info_field(OG_AUDIENCE_FIELD);
   if (!empty($group_field_info)) {
     // Get links for all group bundles.
-    $node_links = collabco_integration_build_node_links($group_field_info['bundles']['node'], $og_context ['gid']);
+    $node_links = integration_build_node_links($group_field_info['bundles']['node'], $og_context ['gid']);
     // Build render array structure.
     $block = array();
     $block['content'] = array(

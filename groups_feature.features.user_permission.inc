@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * collabco_groups_feature.features.user_permission.inc
+ * groups_feature.features.user_permission.inc
  */
 
 /**
  * Implements hook_user_default_permissions().
  */
-function collabco_groups_feature_user_default_permissions() {
+function groups_feature_user_default_permissions() {
   $permissions = array();
 
   // Exported permission: 'administer group'.

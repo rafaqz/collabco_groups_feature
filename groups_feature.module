@@ -4,15 +4,15 @@
  * Code for the Collabco Groups Feature feature.
  */
 
-include_once 'collabco_groups_feature.features.inc';
-include_once 'collabco_groups_feature.inc';
+include_once 'groups_feature.features.inc';
+include_once 'groups_feature.inc';
 
 /**
  * Implements hook_init().
  * 
  * Set og context from url query, if its being used with entity prepopulate.
  */
-function collabco_groups_feature_init() { 
+function groups_feature_init() { 
   // Get group id from path query, as used by entityreference_prepopulate.
   $params = drupal_get_query_parameters();
   if (!empty($params[OG_AUDIENCE_FIELD])) {
@@ -47,9 +47,9 @@ function collabco_groups_feature_init() {
 /**
  * Implements hook_menu_alter().
  */
-function collabco_groups_feature_menu_alter(&$items) {
+function groups_feature_menu_alter(&$items) {
   unset($items['node/%node/view']['title']);
-  $items['node/%node/view']['title callback'] = 'collabco_groups_feature_set_view_tab_title';
+  $items['node/%node/view']['title callback'] = 'groups_feature_set_view_tab_title';
   $items['node/%node/view']['title arguments'] = array(1);
 }
 
@@ -58,7 +58,7 @@ function collabco_groups_feature_menu_alter(&$items) {
  *
  * @return string
  */
-function collabco_groups_feature_set_view_tab_title($node) {
+function groups_feature_set_view_tab_title($node) {
   if (og_is_group('node',$node->nid)) {
     return t('About');
   }
@@ -68,7 +68,7 @@ function collabco_groups_feature_set_view_tab_title($node) {
 /**
  * Implements hook_block_info().
  */
-function collabco_groups_feature_block_info() {
+function groups_feature_block_info() {
   $blocks = array(
     'group_toolbar' => array(
       'info' => t('Group Toolbar'),
@@ -83,24 +83,24 @@ function collabco_groups_feature_block_info() {
 /**
  * Implements hook_block_view().
  */
-function collabco_groups_feature_block_view($delta='') {
+function groups_feature_block_view($delta='') {
   switch($delta) {
     case 'group_toolbar' :
-      $block = collabco_groups_feature_build_group_toolbar_block();
+      $block = groups_feature_build_group_toolbar_block();
       return $block;
     case 'user_groups_list' :
-      $block = collabco_groups_feature_build_user_groups_list_block();
+      $block = groups_feature_build_user_groups_list_block();
       return $block;
   }
 } 
 
 /**
- * Implements hook_collabco_integration().
+ * Implements hook_integration().
  */
-function collabco_groups_feature_collabco_integration() {
+function groups_feature_integration() {
   // Add links to views if a module wants to do that.
   return array(
-    'collabco_groups_feature' => array(
+    'groups_feature' => array(
       'entity' => array(
         'node'=> array(
           'private_group' => array(
