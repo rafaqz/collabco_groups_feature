@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the Collabco Groups Feature feature.
+ * Code for the Groups Feature.
  */
 
 include_once 'groups_feature.features.inc';

@@ -1,7 +1,7 @@
-name = Collabco Groups Feature
+name = Groups Feature
 description = Groups content, fields and settings
 core = 7.x
-package = Collabco
+package = Features
 project = groups_feature
 dependencies[] = block_class
 dependencies[] = integration
