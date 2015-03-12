@@ -382,10 +382,11 @@ function groups_feature_views_default_views() {
   $handler->display->display_options['fields']['picture']['label'] = '';
   $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['picture']['image_style'] = 'user_thumb_small';
-  /* Sort criterion: User: Last Name (field_last_name) */
-  $handler->display->display_options['sorts']['field_last_name_value']['id'] = 'field_last_name_value';
-  $handler->display->display_options['sorts']['field_last_name_value']['table'] = 'field_data_field_last_name';
-  $handler->display->display_options['sorts']['field_last_name_value']['field'] = 'field_last_name_value';
+  /* Sort criterion: User: Picture */
+  $handler->display->display_options['sorts']['picture']['id'] = 'picture';
+  $handler->display->display_options['sorts']['picture']['table'] = 'users';
+  $handler->display->display_options['sorts']['picture']['field'] = 'picture';
+  $handler->display->display_options['sorts']['picture']['order'] = 'DESC';
   /* Contextual filter: OG membership: Group ID */
   $handler->display->display_options['arguments']['gid']['id'] = 'gid';
   $handler->display->display_options['arguments']['gid']['table'] = 'og_membership';
